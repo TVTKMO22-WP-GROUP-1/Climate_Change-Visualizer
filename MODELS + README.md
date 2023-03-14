@@ -5,7 +5,7 @@ Web programming project for visualizing climate change, global temperatures and 
 JarvensivuS = Samuli Järvensivu\
 SampeW = Sampo Ikonen\
 SarlinS = Sampo Sarlin\
-Jokikko = Tuomas Jokikokko\
+Jokikko = Tuomas Jokikokko
 
 # ER Diagram
 
