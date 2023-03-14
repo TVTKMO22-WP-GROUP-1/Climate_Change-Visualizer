@@ -9,7 +9,7 @@ Jokikko = Tuomas Jokikokko
 
 # ER Diagram
 
-# REST API Diagram
+# REST API Login Flowchart
 ![Group 1 API login flowchart](https://user-images.githubusercontent.com/47556122/224998874-51fa6ecd-5db2-47ad-8d2f-4c35bccdccea.png)
 
 # User Interface Diagram
