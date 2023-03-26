@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -35,4 +36,18 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.headline-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.headline-block {
+  flex: 1;
+  padding: 20px;
+  background-color: #4e2929;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 10px;
 }
