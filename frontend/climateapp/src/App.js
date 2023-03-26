@@ -1,7 +1,4 @@
 import './App.css';
-import React, { useState } from 'react';
-
-
 
   function App() {
     
@@ -29,25 +26,20 @@ import React, { useState } from 'react';
   function DeleteUserButton(e) {
     e.preventDefault();
     clickMe();
-      <button onClick={DeleteUserButton}>
+    <button onClick={DeleteUserButton} style={{backgroundColor: 'red'}}>
         Delete User
       </button>
-  }
 
-  function CreateUrlButton(e){
-    e.preventDefault();
-    clickMe();
-      <button onClick={CreateUrlButton}>
-        Create Url
-      </button>
   }
 
   function View1() {
     return (
       <div className="headline-container">
         <div className="headline-block">
+          <div className="text-container">
           <h2>View N1</h2>
           <p>Visualizations 1-3</p>
+          </div>
         </div>
       </div>
     );
@@ -57,8 +49,10 @@ import React, { useState } from 'react';
     return (
       <div className="headline-container">
         <div className="headline-block">
+        <div className="text-container">
           <h2>View N2</h2>
           <p>Visualizations 4-5</p>
+          </div>
         </div>
       </div>
     );
@@ -66,16 +60,68 @@ import React, { useState } from 'react';
 
 
   function View3() {
-    const handleClick = () => {
+    const CreateUrlButton = () => {
       alert("Button clicked");
     }
 
     return (
       <div className="headline-container">
         <div className="headline-block">
+          <div className="text-container">
           <h2>View N3</h2>
           <p>User made view</p>
-          <button onClick={() => handleClick("Headline 1")}>Create URL</button>
+          </div>
+          <button onClick={CreateUrlButton}>Create URL</button>
+        </div>
+      </div>
+    );
+  }
+
+  function Visualization1() {
+    return (
+      <div className="visualization-container">
+        <div className="visualization-block">
+          <p>Visualization 1</p>
+        </div>
+      </div>
+    );
+  }
+
+  function Visualization2() {
+    return (
+      <div className="visualization-container">
+        <div className="visualization-block">
+          <p>Visualization 2</p>
+        </div>
+      </div>
+    );
+  }
+
+  function Visualization3() {
+    return (
+      <div className="visualization-container">
+        <div className="visualization-block">
+          <p>Visualization 3</p>
+        </div>
+      </div>
+    );
+  }
+
+  function Visualization4() {
+    return (
+      <div className="visualization-container">
+        <div className="visualization-block">
+          <p>Visualization 4</p>
+        </div>
+      </div>
+    );
+  }
+
+  function Visualization5() {
+    return (
+      <div className="visualization-container">
+        <div className="visualization-block">
+          <p>Visualization 5</p>
         </div>
       </div>
     );
@@ -85,18 +131,31 @@ import React, { useState } from 'react';
 
   return (
     <div className="App">
-      <div>
+      <div className='header'>
         <h1>Climate Change Visualizer</h1>
-      </div>
-      <form>
+        <div className='header-right'>
         <button onClick={LoginButton}> Log in </button>
         <button onClick={SignUpButton}> Sign Up </button>
         <button onClick={DeleteUserButton}> Delete User </button>
+        </div>
+      </div>
+      <form>
         <div>
         <View1/>
+        <div className="v1-v2">
+        <Visualization1/>
+        <Visualization2/>
+        </div>
+        <div className="v3">
+        <Visualization3/>
+        </div>
       </div>
       <div>
-        <View2/>
+      <View2/>
+        <div className="v4-v5">
+        <Visualization4/>
+        <Visualization5/>
+        </div>
       </div>
       <div>
         <View3/>
@@ -107,4 +166,3 @@ import React, { useState } from 'react';
 }
 
 export default App;
-
