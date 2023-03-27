@@ -1,9 +1,12 @@
 package com.group1.climate_change_visualizer.Data;
 
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 
-
+@Service
 public class DataService {
 
     private List<Data> data;
