@@ -1,36 +1,6 @@
 import './App.css';
 
   function App() {
-    
-  function clickMe() {
-
-    alert("Button clicked");
-  }
-
-  function LoginButton(e) {
-    e.preventDefault();
-    clickMe();
-      <button onClick={LoginButton}>
-        Login
-      </button>
-  }
-
-  function SignUpButton(e) {
-    e.preventDefault();
-    clickMe();
-      <button onClick={SignUpButton}>
-        Sign Up
-      </button>
-  }
-
-  function DeleteUserButton(e) {
-    e.preventDefault();
-    clickMe();
-    <button onClick={DeleteUserButton} style={{backgroundColor: 'red'}}>
-        Delete User
-      </button>
-
-  }
 
   function View1() {
     return (
@@ -69,6 +39,7 @@ import './App.css';
         <div className="headline-block">
           <div className="text-container">
           <h2>View N3</h2>
+          
           <p>User made view</p>
           </div>
           <button onClick={CreateUrlButton}>Create URL</button>
@@ -134,9 +105,18 @@ import './App.css';
       <div className='header'>
         <h1>Climate Change Visualizer</h1>
         <div className='header-right'>
-        <button onClick={LoginButton}> Log in </button>
-        <button onClick={SignUpButton}> Sign Up </button>
-        <button onClick={DeleteUserButton}> Delete User </button>
+
+        <form id="signupform" method="post" action="http://localhost:8080/addUser" name="SignUp">
+        <label >Username:</label>
+        <input id="inputUsername" type="text" name="inputUsername"></input><br></br> 
+        <label >Password:</label>
+        <input id="inputPassword" type="text" name="inputPassword"></input><br></br>
+        <button type="submit" name="signup">Create User</button>
+        <button type="submit" formaction="http://localhost:8080/login" name="login">Log in</button>
+        <button type="submit" name="deleteuser" action="http://localhost:8080/deleteUser">Delete</button>
+        <button type="submit" formaction="http://localhost:8080/users" formmethod="get" name="get">User Database</button>
+        </form>
+        
         </div>
       </div>
       <form>

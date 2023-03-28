@@ -20,19 +20,33 @@ import com.group1.climate_change_visualizer.Repository.UserRepository;
 @RestController
 public class UserController {
 
-    private UserService uService = new UserService();
-    private UserRepository userRepository;
-
+    //private UserService uService = new UserService();
     @Autowired
+    UserRepository userRepository;
+
+    /*@Autowired
     public void UserController(UserService uService){
         this.uService = uService;
     }
-
+    */
     @GetMapping("/users")
-    public String getUsers() {
-        return "User GET Method connection working."; 
+    public List<User> getUsers() {
+        return userRepository.getRepoUsers(); 
     }
 
+    @PostMapping("/addUser")
+    public String addUser (
+        @RequestParam("inputUsername") String username,
+        @RequestParam("inputPassword") String password) 
+        {
+            User user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            userRepository.save(user);
+            return "User: " + user.getUsername() + " added.";
+        }
+
+    /*
     @GetMapping("/user/{id}")
     public ResponseEntity<?> getUser(@PathVariable Long id){
         User user = uService.getUser(id);
@@ -56,7 +70,7 @@ public class UserController {
     }
 
     @DeleteMapping("/user/{id}")
-    public ResponseEntity<?> deleteCar(@PathVariable Long id) {
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         User user = uService.getUser(id);
         
         if (user == null){
@@ -65,6 +79,6 @@ public class UserController {
         uService.deleteUser(id);
         return ResponseEntity.status(HttpStatus.OK).body("User with id " + id + " was deleted from the database.");
     }
-    
+    */
     
 }
