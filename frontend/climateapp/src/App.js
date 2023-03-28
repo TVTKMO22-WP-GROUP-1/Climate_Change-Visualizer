@@ -1,6 +1,19 @@
 import './App.css';
 
   function App() {
+    
+  function clickMe() {
+
+    alert("Button clicked");
+  }
+
+  function CreateUrlButton(e) {
+    e.preventDefault();
+    clickMe();
+    <button onClick={CreateUrlButton}>
+        Create URL
+      </button>
+  }
 
   function View1() {
     return (
@@ -30,9 +43,6 @@ import './App.css';
 
 
   function View3() {
-    const CreateUrlButton = () => {
-      alert("Button clicked");
-    }
 
     return (
       <div className="headline-container">
@@ -42,7 +52,6 @@ import './App.css';
           
           <p>User made view</p>
           </div>
-          <button onClick={CreateUrlButton}>Create URL</button>
         </div>
       </div>
     );
@@ -97,25 +106,22 @@ import './App.css';
       </div>
     );
   }
-
-
-
   return (
     <div className="App">
       <div className='header'>
         <h1>Climate Change Visualizer</h1>
         <div className='header-right'>
 
-        <form id="signupform" method="post" action="http://localhost:8080/addUser" name="SignUp">
-        <label >Username:</label>
-        <input id="inputUsername" type="text" name="inputUsername"></input><br></br> 
-        <label >Password:</label>
-        <input id="inputPassword" type="text" name="inputPassword"></input><br></br>
-        <button type="submit" name="signup">Create User</button>
-        <button type="submit" formaction="http://localhost:8080/login" name="login">Log in</button>
-        <button type="submit" name="deleteuser" action="http://localhost:8080/deleteUser">Delete</button>
-        <button type="submit" formaction="http://localhost:8080/users" formmethod="get" name="get">User Database</button>
-        </form>
+          <form id="form" method="post" action="http://localhost:8080/addUser" name="form">
+            <label >Username:</label>
+            <input id="inputUsername" type="text" name="inputUsername"></input><br></br> 
+            <label >Password:</label>
+            <input id="inputPassword" type="text" name="inputPassword"></input><br></br>
+            <button type="submit" name="signup">Sign up</button>
+            <button type="submit" formaction="http://localhost:8080/login" name="login">Log in</button>
+            <button type="submit" style = {{backgroundColor :"red"}} name="deleteuser" action="http://localhost:8080/deleteUser">Delete</button>
+            <button type="submit" formaction="http://localhost:8080/users" formmethod="get" name="getUsers">User Database</button>
+          </form>
         
         </div>
       </div>
@@ -139,6 +145,7 @@ import './App.css';
       </div>
       <div>
         <View3/>
+        <button onClick = {CreateUrlButton}> Create URL </button>
       </div>
       </form>
     </div>

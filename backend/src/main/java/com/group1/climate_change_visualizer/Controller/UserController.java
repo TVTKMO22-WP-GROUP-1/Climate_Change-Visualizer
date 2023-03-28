@@ -22,7 +22,7 @@ public class UserController {
 
     //private UserService uService = new UserService();
     @Autowired
-    UserRepository userRepository;
+    private UserRepository repo;
 
     /*@Autowired
     public void UserController(UserService uService){
@@ -31,19 +31,21 @@ public class UserController {
     */
     @GetMapping("/users")
     public List<User> getUsers() {
-        return userRepository.getRepoUsers(); 
+        return repo.getRepoUsers(); 
     }
 
     @PostMapping("/addUser")
-    public String addUser (
+    public ResponseEntity<?> addUser (
         @RequestParam("inputUsername") String username,
         @RequestParam("inputPassword") String password) 
         {
             User user = new User();
             user.setUsername(username);
             user.setPassword(password);
-            userRepository.save(user);
-            return "User: " + user.getUsername() + " added.";
+            repo.save(user);
+            return ResponseEntity.status(HttpStatus.OK).body(user);
+            
+
         }
 
     /*
