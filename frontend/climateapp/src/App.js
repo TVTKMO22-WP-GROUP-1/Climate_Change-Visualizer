@@ -7,31 +7,6 @@ import './App.css';
     alert("Button clicked");
   }
 
-  function LoginButton(e) {
-    e.preventDefault();
-    clickMe();
-      <button onClick={LoginButton}>
-        Login
-      </button>
-  }
-
-  function SignUpButton(e) {
-    e.preventDefault();
-    clickMe();
-      <button onClick={SignUpButton}>
-        Sign Up
-      </button>
-  }
-
-  function DeleteUserButton(e) {
-    e.preventDefault();
-    clickMe();
-    <button onClick={DeleteUserButton}>
-        Delete User
-      </button>
-
-  }
-
   function CreateUrlButton(e) {
     e.preventDefault();
     clickMe();
@@ -74,6 +49,7 @@ import './App.css';
         <div className="headline-block">
           <div className="text-container">
           <h2>View N3</h2>
+          
           <p>User made view</p>
           </div>
         </div>
@@ -130,17 +106,23 @@ import './App.css';
       </div>
     );
   }
-
-
-
   return (
     <div className="App">
       <div className='header'>
         <h1>Climate Change Visualizer</h1>
         <div className='header-right'>
-        <button onClick={LoginButton}> Log in </button>
-        <button onClick={SignUpButton}> Sign Up </button>
-        <button onClick={DeleteUserButton} style = {{backgroundColor :"red"}}> Delete User </button>
+
+          <form id="form" method="post" action="http://localhost:8080/addUser" name="form">
+            <label >Username:</label>
+            <input id="inputUsername" type="text" name="inputUsername"></input><br></br> 
+            <label >Password:</label>
+            <input id="inputPassword" type="text" name="inputPassword"></input><br></br>
+            <button type="submit" name="signup">Sign up</button>
+            <button type="submit" formaction="http://localhost:8080/login" name="login">Log in</button>
+            <button type="submit" style = {{backgroundColor :"red"}} name="deleteuser" action="http://localhost:8080/deleteUser">Delete</button>
+            <button type="submit" formaction="http://localhost:8080/users" formmethod="get" name="getUsers">User Database</button>
+          </form>
+        
         </div>
       </div>
       <form>
