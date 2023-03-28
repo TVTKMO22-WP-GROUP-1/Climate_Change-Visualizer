@@ -26,10 +26,18 @@ import './App.css';
   function DeleteUserButton(e) {
     e.preventDefault();
     clickMe();
-    <button onClick={DeleteUserButton} style={{backgroundColor: 'red'}}>
+    <button onClick={DeleteUserButton}>
         Delete User
       </button>
 
+  }
+
+  function CreateUrlButton(e) {
+    e.preventDefault();
+    clickMe();
+    <button onClick={CreateUrlButton}>
+        Create URL
+      </button>
   }
 
   function View1() {
@@ -60,9 +68,6 @@ import './App.css';
 
 
   function View3() {
-    const CreateUrlButton = () => {
-      alert("Button clicked");
-    }
 
     return (
       <div className="headline-container">
@@ -71,7 +76,6 @@ import './App.css';
           <h2>View N3</h2>
           <p>User made view</p>
           </div>
-          <button onClick={CreateUrlButton}>Create URL</button>
         </div>
       </div>
     );
@@ -136,7 +140,7 @@ import './App.css';
         <div className='header-right'>
         <button onClick={LoginButton}> Log in </button>
         <button onClick={SignUpButton}> Sign Up </button>
-        <button onClick={DeleteUserButton}> Delete User </button>
+        <button onClick={DeleteUserButton} style = {{backgroundColor :"red"}}> Delete User </button>
         </div>
       </div>
       <form>
@@ -159,6 +163,7 @@ import './App.css';
       </div>
       <div>
         <View3/>
+        <button onClick = {CreateUrlButton}> Create URL </button>
       </div>
       </form>
     </div>
