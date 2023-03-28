@@ -1,22 +1,16 @@
 
 .App {
   text-align: center;
-  background-color: #323233;
+  background-color: #4e4e4e;
 }
 
 .header{
   background-color: #3e4a86;
-  color: #fff;
+  color: #ececec;
   padding: 20px;
   border-radius: 5px;
   margin-bottom: 20px;
 }
-
-.header-right {
-  float: right;
-}
-
-
 
 .headline-container {
   display: flex;
@@ -27,23 +21,12 @@
 .headline-block {
   flex: 1;
   padding: 20px;
-  background-color: #5d5a70;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-right: 10px;
-  align-items: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: #252837;
 }
 
 
 .text-container {
   margin-right: 20px;
-}
-
-.headline-block:last-child {
-  margin-right: 0;
 }
 
 .headline-block h2 {
@@ -68,7 +51,6 @@
   flex: 1;
   padding: 20px;
   background-color: #3e4a86;
-  border: 1px solid #ddd;
   border-radius: 5px;
   margin-right: 10px;
 }
