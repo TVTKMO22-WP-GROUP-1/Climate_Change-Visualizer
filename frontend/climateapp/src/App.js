@@ -2,8 +2,63 @@ import './App.css';
 import React, { useState } from 'react';
 import {Line, Pie} from 'react-chartjs-2';
 import {Chart as ChartJS} from 'chart.js/auto';
+import Home from './Home';
+import LoginView from './LoginView';
+import ProtectedView from './ProtectedView';
+import SignUpView from './SignUpView';
+import { BrowserRouter, Route, Link, Routes} from 'react-router-dom';
+import Visualization1 from './Visualization1';
 
-  function App() {
+function App() {
+
+ /* const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [userJwt, setUserJwt] = useState(false);
+
+  let authRoutes = <>
+      <Route path = "/login" element={ <LoginView login={ (newJwt) =>{
+        setIsUserLoggedIn(true);
+        setUserJwt(newJwt);
+      }}/> }/>
+      <Route path="/signup" element={<SignUpView/>}/>
+  </>
+
+  if (isUserLoggedIn !== true) {
+    authRoutes = <Route path="/protected" element={<ProtectedView/>}/>
+  
+  }
+  return(
+  <div>
+    <h1>Climate Change Visualizer</h1>
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={ <Home userLoggedIn={userJwt != null}/>}/>
+      {authRoutes}
+      <Route path="*" element={ <Home userLoggedIn={userJwt != null}/> } />
+    </Routes>
+    </BrowserRouter>
+  </div>
+  );
+}*/
+
+  return (
+    <div className="App">
+      <div className='header'>
+    <h1>Climate Change Visualizer</h1>
+    <BrowserRouter>
+      <Routes>
+      <Route path="/" element={ <Home/>}/>
+      <Route path="/login" element={ <LoginView/>}/>      
+      <Route path="/signup" element={ <SignUpView/>}/>
+      </Routes>
+    </BrowserRouter>
+    </div>
+    </div>
+    
+  )
+}
+
+/*  function App() {
+
 
   const climateData = [
     {year: 2010, temp: 10, co2: 12},
@@ -142,7 +197,7 @@ import {Chart as ChartJS} from 'chart.js/auto';
     <div className="App">
       <div className='header'>
         <h1>Climate Change Visualizer</h1>
-        <div className='header-right'>
+          <div className='header-right'>
 
           <form id="form" method="post" action="http://localhost:8080/addUser" name="form">
             <label >Username:</label>
@@ -203,5 +258,8 @@ import {Chart as ChartJS} from 'chart.js/auto';
     </div>
   );
 }
+
+export default App;*/
+
 
 export default App;
