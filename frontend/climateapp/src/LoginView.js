@@ -2,17 +2,19 @@ import React from 'react'
 import axios from 'axios'
 import Constants from './Constants.json'
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 
 
 export default function LoginView(props) {
-
+  const [loginProcessState, setLoginProcessState] = useState("idle");
   const navigate = useNavigate();
 
   //Check if user is signed up
 
   const HandleLoginSubmit = async (event) => {
       event.preventDefault();
+      setLoginProcessState("processing");
     try {
       const result = await axios.post(Constants.API_ADDRESS + '/jwtLogin',
       null,
@@ -24,16 +26,39 @@ export default function LoginView(props) {
   }
 );
 
-      console.log(result);
-      const receivedJWT = result.data.token;
-      //props.login(receivedJWT);
-      navigate('/', { replace: true }); //Navigate to home page
 
+      console.log(result);
+      setLoginProcessState("success");
+      setTimeout(() => {
+        navigate('/', { replace: true }); //Navigate to home page
+      }, 1500);
 
   } catch (error) {
       console.log(error)
+      setLoginProcessState("error"); //Alert user if error
+      setTimeout(() => {
+          setLoginProcessState("idle");
+      }, 1500);
   }
 };
+
+let loginUiControls = null;
+switch (loginProcessState) {
+    case 'idle':
+        loginUiControls = <button type="submit">Login</button>;
+        break;
+    case 'processing':
+        loginUiControls = <span>Processing...</span>
+        break;
+    case 'success':
+        loginUiControls = <span style = {{color: 'green'}}>Login successful!</span>;
+        break;
+    case 'error':
+        loginUiControls = <span style = {{color: 'red'}}>Login failed!</span>;
+        break;
+    default:
+        loginUiControls = <button type="submit">Login</button>;
+}
 
   return (
     <div>
@@ -48,7 +73,7 @@ export default function LoginView(props) {
             <input type="password" name="password"/>
             </div>
             <div>
-              <button type="submit">Login</button>
+              {loginUiControls}
             </div>
           </form>
     </div>

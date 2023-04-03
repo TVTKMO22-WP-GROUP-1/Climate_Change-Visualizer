@@ -78,9 +78,6 @@ export default function Home(props) {
     <div>
     <h1>this is home view </h1>
     <div>
-      User login status is: logged in / not logged in
-    </div>
-    <div>
     </div>
     <div>
       <GoToLogin/>
