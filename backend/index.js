@@ -28,7 +28,7 @@ const pool = new Pool({
     port: 5432
 });*/
 
-//Demo middleware
+//middleware
 
 app.use((req, res, next) => {
     console.log("demo middleware...")
@@ -47,8 +47,8 @@ const users = [
 passport.use(new BasicStrategy(
     function(username, password, done) {
 
-        console.log('username'+username);
-        console.log('password'+password);
+        //console.log('username'+username);
+        //console.log('password'+password);
 
         const user = users.find(u => u.username === username);
 
@@ -100,9 +100,9 @@ const jwtOptions = {
 
 //JWT 
 passport.use(new JwtStrategy(jwtOptions, function(jwt_payload, done){
-    console.log("JWT IS VALID");
+    /*console.log("JWT IS VALID");
     console.log("JWT PAYLOAD: ");
-    console.log(jwt_payload);
+    console.log(jwt_payload);*/
 
     done(null, jwt_payload);
 }))
@@ -110,7 +110,7 @@ passport.use(new JwtStrategy(jwtOptions, function(jwt_payload, done){
 // REQUEST BODY
 
 app.post('/register', (req, res) => {
-    console.log(req.body);
+   // console.log(req.body);
 
 
     if('username' in req.body == false){
@@ -127,9 +127,9 @@ app.post('/register', (req, res) => {
     //hash the password
     const salt = bcrypt.genSaltSync(6);
     const passwordHash = bcrypt.hashSync(req.body.password, salt);
-    console.log(passwordHash);
+    console.log("passwordhash" + passwordHash);
     users.push({id: uuidv4(), username: req.body.username, password: passwordHash});
-    console.log("user pushed " + users)
+   // console.log("user pushed " + users)
 
     res.status(201).json({ status : "created"})
     
@@ -147,16 +147,16 @@ app.post('/register', (req, res) => {
 
 
 
-/*app.get('/my-protected-resource', passport.authenticate('basic',{session: false}),(req, res) => {
+app.get('/my-protected-resource', passport.authenticate('basic',{session: false}),(req, res) => {
     console.log("Protected resource accessed");
 
     res.send('This is a protected resource');
-    })*/ //Test uses 
+    })
 
 //JWT login
 app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res) => {
     
-    console.log(req);
+    //console.log(req);
     
     const payload = {
         user : {
@@ -168,7 +168,7 @@ app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res
     const secretKey = "secretKey";
 
     const options = {
-        expiresIn: '1d'
+        expiresIn: '1d'//expires in 1 day
     };
 
     const generatedJWT = jwt.sign(payload, secretKey, options)
@@ -177,13 +177,13 @@ app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res
 
 })
 
-/*app.get('/jwt-protected-resource', passport.authenticate('jwt',{session: false}), (req, res) => {
+app.get('/jwt-protected-resource', passport.authenticate('jwt',{session: false}), (req, res) => {
     //console.log(req.user);
 
     console.log('User Id from JWT is ' + req.user.user.id);
     
     res.send("OK, for user " + req.user.user.username);
-})*/
+})
 
 //Port for server
 

@@ -7,7 +7,6 @@ import LoginView from './LoginView';
 import ProtectedView from './ProtectedView';
 import SignUpView from './SignUpView';
 import { BrowserRouter, Route, Link, Routes} from 'react-router-dom';
-import Visualization1 from './Visualization1';
 
 function App() {
 

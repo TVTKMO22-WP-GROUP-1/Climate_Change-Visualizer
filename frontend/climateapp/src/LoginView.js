@@ -25,7 +25,7 @@ export default function LoginView(props) {
 );
 
       console.log(result);
-      //const receivedJWT = result.data.token;
+      const receivedJWT = result.data.token;
       //props.login(receivedJWT);
       navigate('/', { replace: true }); //Navigate to home page
 
