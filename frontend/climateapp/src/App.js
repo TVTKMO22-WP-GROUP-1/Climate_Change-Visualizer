@@ -7,43 +7,15 @@ import LoginView from './LoginView';
 import ProtectedView from './ProtectedView';
 import SignUpView from './SignUpView';
 import { BrowserRouter, Route, Link, Routes} from 'react-router-dom';
-import Visualization1 from './Visualization1';
+
+
 
 function App() {
-
- /* const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  const [userJwt, setUserJwt] = useState(false);
-
-  let authRoutes = <>
-      <Route path = "/login" element={ <LoginView login={ (newJwt) =>{
-        setIsUserLoggedIn(true);
-        setUserJwt(newJwt);
-      }}/> }/>
-      <Route path="/signup" element={<SignUpView/>}/>
-  </>
-
-  if (isUserLoggedIn !== true) {
-    authRoutes = <Route path="/protected" element={<ProtectedView/>}/>
-  
-  }
-  return(
-  <div>
-    <h1>Climate Change Visualizer</h1>
-    <BrowserRouter>
-    <Routes>
-      <Route path="/" element={ <Home userLoggedIn={userJwt != null}/>}/>
-      {authRoutes}
-      <Route path="*" element={ <Home userLoggedIn={userJwt != null}/> } />
-    </Routes>
-    </BrowserRouter>
-  </div>
-  );
-}*/
-
   return (
     <div className="App">
       <div className='header'>
     <h1>Climate Change Visualizer</h1>
+    <h2>Login status: </h2>
     <BrowserRouter>
       <Routes>
       <Route path="/" element={ <Home/>}/>
@@ -53,9 +25,10 @@ function App() {
     </BrowserRouter>
     </div>
     </div>
-    
-  )
+
+  );
 }
+
 
 /*  function App() {
 
