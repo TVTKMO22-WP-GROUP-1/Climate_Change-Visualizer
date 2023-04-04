@@ -6,6 +6,7 @@ import Home from './Home';
 import LoginView from './LoginView';
 import ProtectedView from './ProtectedView';
 import SignUpView from './SignUpView';
+import DeleteView from './DeleteView';
 import { BrowserRouter, Route, Link, Routes} from 'react-router-dom';
 
 
@@ -21,6 +22,7 @@ function App() {
       <Route path="/" element={ <Home/>}/>
       <Route path="/login" element={ <LoginView/>}/>      
       <Route path="/signup" element={ <SignUpView/>}/>
+      <Route path="/delete" element={ <DeleteView/>}/>
       </Routes>
     </BrowserRouter>
     </div>

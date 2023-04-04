@@ -24,6 +24,14 @@ function GoToSignUp() {
   );
 }
 
+function GoToDelete() {
+  return (
+    <Link to="/delete">
+      <button>Delete</button>
+    </Link>
+  );
+}
+
 function View1() {
   return (
     <div className="headline-container">
@@ -82,6 +90,7 @@ export default function Home(props) {
     <div>
       <GoToLogin/>
       <GoToSignUp/>
+      <GoToDelete/>
       </div>
       <div>
       <View1/>
