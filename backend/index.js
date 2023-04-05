@@ -146,8 +146,8 @@ app.post('/register', (req, res) => {
 });
 
 
-app.post('/deleteuser', (req, res) => {
-    // console.log(req.body);
+app.delete('/deleteuser', passport.authenticate('basic',{session: false}) ,(req, res) => {
+    console.log(req.body);
  
  
      if('username' in req.body == false){
@@ -162,7 +162,7 @@ app.post('/deleteuser', (req, res) => {
          return;
      }
 
-     users.pull({id: uuidv4(), username: req.body.username, password: req.body.passwordHash});
+     users.delete({username: req.body.username, password: req.body.password});
 
      res.status(201).json({ status : "deleted"})
      
