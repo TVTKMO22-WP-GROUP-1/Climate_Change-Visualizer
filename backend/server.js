@@ -127,8 +127,8 @@ app.post('/register', (req, res) => {
     //hash the password
     const salt = bcrypt.genSaltSync(6);
     const passwordHash = bcrypt.hashSync(req.body.password, salt);
-    console.log("passwordhash" + passwordHash);
-    users.push({id: uuidv4(), username: req.body.username, password: passwordHash});
+    //console.log("passwordhash" + passwordHash);
+    users.push({id: uuidv4(), username: req.body.username, password: passwordHash}); //database
    // console.log("user pushed " + users)
 
     res.status(201).json({ status : "created"})
