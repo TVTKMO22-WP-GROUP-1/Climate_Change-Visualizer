@@ -145,8 +145,6 @@ app.post('/register', (req, res) => {
         res.send('OK');*/
 });
 
-
-
 app.get('/my-protected-resource', passport.authenticate('basic',{session: false}),(req, res) => {
     console.log("Protected resource accessed");
 
@@ -155,9 +153,7 @@ app.get('/my-protected-resource', passport.authenticate('basic',{session: false}
 
 //JWT login
 app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res) => {
-    
     //console.log(req);
-    
     const payload = {
         user : {
             id: req.user.id,
@@ -176,6 +172,26 @@ app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res
     res.json({jwt : generatedJWT })
 
 })
+
+app.delete('/deleteuser', passport.authenticate('basic',{session: false}) ,(req, res) => {
+    console.log(req.body);
+     if('username' in req.body == false){
+         res.status(400);
+         res.json({status: "missing username"})
+         return;
+     }
+ 
+     if('password' in req.body == false){
+         res.status(400);
+         res.json({status: "missing password"})
+         return;
+     }
+
+     users.delete({username: req.body.username, password: req.body.password});
+
+     res.status(201).json({ status : "deleted"})
+
+ });
 
 app.get('/jwt-protected-resource', passport.authenticate('jwt',{session: false}), (req, res) => {
     //console.log(req.user);
