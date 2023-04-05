@@ -1,20 +1,16 @@
 package com.group1.climate_change_visualizer.Controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.group1.climate_change_visualizer.Data.User;
-import com.group1.climate_change_visualizer.Data.UserService;
 import com.group1.climate_change_visualizer.Repository.UserRepository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
