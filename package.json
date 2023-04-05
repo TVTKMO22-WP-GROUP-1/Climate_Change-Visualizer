@@ -7,7 +7,6 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "chai": "^4.3.7",
-    "chai-http": "^4.3.0",
-    "mocha": "^10.2.0"
+    "chai-http": "^4.3.0"
   }
 }
