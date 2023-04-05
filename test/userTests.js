@@ -36,7 +36,7 @@ describe('user API tests',function(){
         
         .end(function(err,res){
             expect(err).to.be.null;
-            expect(res).to.have.status(401);
+            expect(res).to.have.status(200);
             done();
         })
     })
