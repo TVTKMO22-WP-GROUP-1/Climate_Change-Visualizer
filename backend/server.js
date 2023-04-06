@@ -14,7 +14,7 @@ const cors = require('cors');
 
 app.use(bodyParser.json());
 
-app.use(cors())
+app.use(cors());
 
 //node index.js to start server
 
@@ -126,6 +126,15 @@ passport.use(new BasicStrategy(
 app.post('/register', (req, res) => {
    // console.log(req.body);
 
+   const username = req.body.username
+   const password = req.body.password
+
+
+pool.query("INSERT INTO users (username, password) VALUES ($1,$2)",
+[username, password],
+ (err, result)=> {
+   console.log(err);
+})
 
     if('username' in req.body == false){
         res.status(400);
