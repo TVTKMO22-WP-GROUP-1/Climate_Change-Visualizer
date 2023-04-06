@@ -18,15 +18,25 @@ app.use(cors())
 
 //node index.js to start server
 
-//To connect to database (not tested because of IP problems)
-/*const { Pool } = require('pg');
+//To connect to database 
+const { Pool } = require('pg');
 const pool = new Pool({
-    user: 'dpg-cg80u01mbg53mc3cml2g-a.frankfurt-postgres.render.com',
-    host: 'localhost',
-    database: 'group1db',
-    password: 'LEjCfIy7NtvcBrP2qB73lon1Z4IInvBM',
-    port: 5432
-});*/
+    connectionString: 'postgres://group1db_user:LEjCfIy7NtvcBrP2qB73lon1Z4IInvBM@dpg-cg80u01mbg53mc3cml2g-a.frankfurt-postgres.render.com/group1db?ssl=true',
+
+});
+
+pool.connect((err, client, done) => {
+    if (err) throw err;
+    console.log('Connected to PostgreSQL database!');
+  
+    client.query('SELECT username FROM users', (err, result) => {
+      if (err) throw err;
+      console.log(result.rows.map(row => row.username));
+      done(); // release the client back to the pool
+    });
+  });
+    
+   
 
 //middleware
 
@@ -43,8 +53,8 @@ const users = [
     {id: uuidv4(), username: 'test2', password: '4321'},
 ];
 
-//Check Credentials
-passport.use(new BasicStrategy(
+//Check Credentials //Tällä toimi locaalisti
+/*passport.use(new BasicStrategy(
     function(username, password, done) {
 
         //console.log('username'+username);
@@ -64,32 +74,10 @@ passport.use(new BasicStrategy(
         }
 
     }
-));
+)); */
 
-// Check credentials for database (NOT TESTED)
-/*passport.use(new BasicStrategy(
-    function(username, password, done) {
-        pool.query('SELECT * FROM users WHERE username = $1', [username], (error, results) => {
-            if (error) {
-                throw error;
-            }
 
-            console.log(results.rows);
 
-            if (results.rows.length > 0) {
-                const user = results.rows[0];
-
-                if (bcrypt.compareSync(password, user.password)) {
-                    done(null, user);
-                } else {
-                    done(null, false);
-                }
-            } else {
-                done(null, false);
-            }
-        });
-    }
-));*/
 
 //JWT
 
@@ -106,6 +94,32 @@ passport.use(new JwtStrategy(jwtOptions, function(jwt_payload, done){
 
     done(null, jwt_payload);
 }))
+
+// Check credentials for database (Testattu ja toimii, mutta en tiiä onko oikein)
+passport.use(new BasicStrategy(
+    function(username, password, done) {
+        pool.query('SELECT * FROM users WHERE username = $1', [username], (error, results) => {
+            if (error) {
+                throw error;
+            }
+
+            console.log(results.rows);
+
+            if (results.rows.length > 0) {
+                const user = results.rows[0];
+
+                if (bcrypt.compareSync(password, user.password)) {
+                    console.log(results.rows);
+                    done(null, user);
+                } else {
+                    done(null, false);
+                }
+            } else {
+                done(null, false);
+            }
+        });
+    }
+));
 
 // REQUEST BODY
 
