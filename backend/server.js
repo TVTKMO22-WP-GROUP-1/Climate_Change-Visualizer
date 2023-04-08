@@ -47,56 +47,11 @@ app.use((req, res, next) => {
 })
 
 
-//Users with two test users hardcoded
-const users = [
-    {id: uuidv4(), username: 'test1', password: '1234'},
-    {id: uuidv4(), username: 'test2', password: '4321'},
-];
+//const users must be there, otherwise big error
+const users = [];
 
-//Check Credentials //Tällä toimi locaalisti
+// Check credentials for database
 /*passport.use(new BasicStrategy(
-    function(username, password, done) {
-
-        //console.log('username'+username);
-        //console.log('password'+password);
-
-        const user = users.find(u => u.username === username);
-
-        if (user != null) {
-            
-            if(bcrypt.compareSync(password, user.password)){
-                done(null, user);
-            } else {
-                done(null, false);
-            }
-        } else {
-            done(null, false);
-        }
-
-    }
-)); */
-
-
-
-
-//JWT
-
-const jwtOptions = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: "secretKey"
-}
-
-//JWT 
-passport.use(new JwtStrategy(jwtOptions, function(jwt_payload, done){
-    /*console.log("JWT IS VALID");
-    console.log("JWT PAYLOAD: ");
-    console.log(jwt_payload);*/
-
-    done(null, jwt_payload);
-}))
-
-// Check credentials for database (Testattu ja toimii, mutta en tiiä onko oikein)
-passport.use(new BasicStrategy(
     function(username, password, done) {
         pool.query('SELECT * FROM users WHERE username = $1', [username], (error, results) => {
             if (error) {
@@ -119,7 +74,51 @@ passport.use(new BasicStrategy(
             }
         });
     }
+));*/
+
+//Check Credentials //Tällä toimi locaalisti //toimi registeris
+passport.use(new BasicStrategy(
+    function(username, password, done) {
+
+        //console.log('username'+username);
+        //console.log('password'+password);
+
+        const user = users.find(u => u.username === username);
+
+        if (user != null) {
+            
+            if(bcrypt.compareSync(password, user.password)){
+                done(null, user);
+            } else {
+                done(null, false);
+            }
+        } else {
+            done(null, false);
+        }
+
+    }
 ));
+
+
+
+
+//JWT
+
+const jwtOptions = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: "secretKey"
+}
+
+//JWT 
+passport.use(new JwtStrategy(jwtOptions, function(jwt_payload, done){
+    /*console.log("JWT IS VALID");
+    console.log("JWT PAYLOAD: ");
+    console.log(jwt_payload);*/
+
+    done(null, jwt_payload);
+}))
+
+
 
 // REQUEST BODY
 
@@ -157,15 +156,6 @@ pool.query("INSERT INTO users (username, password) VALUES ($1,$2)",
     res.status(201).json({ status : "created"})
     
 
-    //Database connection (not tested)
-    /*pool.query('INSERT INTO users (id, username, password) VALUES ($1, $2, $3)', [uuidv4(), req.body.username, passwordHash], (error, results) => {
-        if (error) {
-            throw error;
-        }
-
-        console.log(users);
-
-        res.send('OK');*/
 });
 
 app.get('/my-protected-resource', passport.authenticate('basic',{session: false}),(req, res) => {
