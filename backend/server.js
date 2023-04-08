@@ -11,7 +11,6 @@ const {v4: uuidv4} = require('uuid');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
 
-
 app.use(bodyParser.json());
 
 app.use(cors())
@@ -127,7 +126,7 @@ app.post('/register', (req, res) => {
     //hash the password
     const salt = bcrypt.genSaltSync(6);
     const passwordHash = bcrypt.hashSync(req.body.password, salt);
-    console.log("passwordhash" + passwordHash);
+    //console.log("passwordhash" + passwordHash);
     users.push({id: uuidv4(), username: req.body.username, password: passwordHash});
    // console.log("user pushed " + users)
 
@@ -162,15 +161,11 @@ app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res
     };
 
     const secretKey = "secretKey";
-
     const options = {
         expiresIn: '1d'//expires in 1 day
     };
-
     const generatedJWT = jwt.sign(payload, secretKey, options)
-    //console.log("TOKEN: " + generatedJWT);
     res.json({jwt : generatedJWT })
-
 })
 
 app.delete('/deleteuser', passport.authenticate('basic',{session: false}) ,(req, res) => {
@@ -201,9 +196,7 @@ app.get('/jwt-protected-resource', passport.authenticate('jwt',{session: false})
     res.send("OK, for user " + req.user.user.username);
 })
 
-//Port for server
 let serverInstance = null;
-
 module.exports = {
     start: function() {
         serverInstance = app.listen(port, () => {
