@@ -24,6 +24,15 @@ function GoToSignUp() {
   );
 }
 
+function GoToProtected() {
+  return (
+    <Link to="/protected">
+      <button>Protected View</button>
+    </Link>
+  );
+}
+
+
 function View1() {
   return (
     <div className="headline-container">
@@ -78,10 +87,17 @@ export default function Home(props) {
     <div>
     <h1>this is home view </h1>
     <div>
+      User login status: {props.userLoggedIn ? "Logged in" : "Not logged in" }
     </div>
     <div>
-      <GoToLogin/>
-      <GoToSignUp/>
+      {props.userLoggedIn ?
+        <GoToProtected/>
+        :
+        <div>
+          <GoToLogin/>
+          <GoToSignUp/>
+        </div>
+      }
       </div>
       <div>
       <View1/>
@@ -99,7 +115,11 @@ export default function Home(props) {
         </div>
         </div>
         <View3/>
-        <button onClick = {CreateUrlButton}> Create URL </button>
-      </div>
+        <div className="create-url">
+        <button onClick={CreateUrlButton}>
+      Create URL
+    </button>
+    </div>
+    </div>
   )
 }
