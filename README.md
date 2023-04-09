@@ -13,7 +13,7 @@ Jokainen projektiryhmän jäsen toimi Full Stack -kehittäjänä, eli työstivä
 
 Asiakaskäyttöliittymän yläosassa on projektin nimen lisäksi lomakemuotoinen pohja rekisteröitymiseen, kirjautumiseen ja tunnuksen poistamiseen. Lomakepohjan alapuolelle on sijoitettu visualisaationäkymät kolmeen eri osioon N1, N2 ja N3. N1 sisältää visualisaationäkymät V1-V3 ja N2 sisältää V4- ja V5-näkymät. Osioon N3 käyttäjä pystyy itse määrittelemään haluamansa näkymän.
 
-![climate_frontPage](https://ibb.co/N1fFpmR)
+![climate_frontPage](https://i.ibb.co/gvQrwPY/etusivu.png)
 
 *Kuva 1: Etusivu*
 
@@ -21,11 +21,11 @@ Asiakaskäyttöliittymän yläosassa on projektin nimen lisäksi lomakemuotoinen
 
 Rekisteröitymisessä käyttäjä luo itselleen käyttäjätunnuksen ja salasanan, joiden avulla valitut näkymät voidaan tallentaa osioon N3. Käyttäjätunnus ja salasana säilyvät tietokannassa, salasana kryptattuna bcrypt-menetelmällä. Sisäänkirjautuminen tapahtuu käyttäjätunnuksen ja salasanan avulla lomakepohjalla.
 
-![climate_registerWindow](https://ibb.co/k90XR4N)
+![climate_registerWindow](https://i.ibb.co/P94g7cq/rekist.png)
 
 *Kuva 2: Rekisteröitymisikkuna*
 
-![climate_loginWindow](https://ibb.co/PhkdP7D)
+![climate_loginWindow](https://i.ibb.co/58ZPSNK/login.png)
 
 *Kuva 3: Kirjautumisikkuna*
 
@@ -35,6 +35,6 @@ Tunnuksen poistaminen onnistuu käyttäjän niin halutessa napin painalluksella.
 
 Sisäänkirjautunut käyttäjä voi muokata omaa N3-osiotaan lisäämällä ja poistamalla näkymiä. Tämä tapahtuu klikkaamalla eri visualisaatioita ja diagrammeja tai vetämällä haluttu diagrammi N3-osioon.
 
-![climate_userWindow](https://ibb.co/hDT3HCk)
+![climate_userWindow](https://i.ibb.co/J5SD2CN/userview.png)
 
 *Kuva 4: Käyttäjän oma näkymä*
