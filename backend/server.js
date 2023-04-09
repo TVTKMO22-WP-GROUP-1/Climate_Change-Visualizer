@@ -157,37 +157,6 @@ pool.query("INSERT INTO users (username, password) VALUES ($1,$2)",
 
 });
 
-
-
-
-     if('username' in req.body == false){
-         res.status(400);
-         res.json({status: "missing username"})
-         return;
-     }
-
-     if('password' in req.body == false){
-         res.status(400);
-         res.json({status: "missing password"})
-         return;
-     }
-
-     users.delete({username: req.body.username, password: req.body.password});
-
-     res.status(201).json({ status : "deleted"})
-
-
-     //Database connection (not tested)
-     /*pool.query('DELETE FROM users (id, username, password) VALUES ($1, $2, $3)', [uuidv4(), req.body.username, passwordHash], (error, results) => {
-         if (error) {
-             throw error;
-         }
- 
-         console.log(users);
- 
-         res.send('OK');*/
- });
-
 app.get('/my-protected-resource', passport.authenticate('basic',{session: false}),(req, res) => {
     console.log("Protected resource accessed");
 
