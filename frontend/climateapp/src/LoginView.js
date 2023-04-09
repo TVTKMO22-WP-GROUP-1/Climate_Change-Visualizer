@@ -13,20 +13,19 @@ export default function LoginView(props) {
   //Check if user is signed up
 
   const HandleLoginSubmit = async (event) => {
-      event.preventDefault();
-      setLoginProcessState("processing");
+    event.preventDefault();
+    setLoginProcessState("processing");
     try {
       const result = await axios.post(Constants.API_ADDRESS + '/jwtLogin',
-      null,
-      {
+        null,
+        {
           auth: {
-              username: event.target.username.value,
-              password: event.target.password.value
-      }
-  }
-);
-
-
+            username: event.target.username.value,
+            password: event.target.password.value
+          }
+        }
+      );
+  
       console.log(result);
       const receiwedJWT = result.data.token;
       props.login(receiwedJWT);
@@ -34,15 +33,14 @@ export default function LoginView(props) {
       setTimeout(() => {
         navigate('/', { replace: true }); //Navigate to home page
       }, 1500);
-
-  } catch (error) {
+    } catch (error) {
       console.log(error)
       setLoginProcessState("error"); //Alert user if error
       setTimeout(() => {
-          setLoginProcessState("idle");
+        setLoginProcessState("idle");
       }, 1500);
-  }
-};
+    }
+  };
 
 let loginUiControls = null;
 switch (loginProcessState) {
