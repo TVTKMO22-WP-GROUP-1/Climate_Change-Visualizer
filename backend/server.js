@@ -27,15 +27,9 @@ const pool = new Pool({
 pool.connect((err, client, done) => {
     if (err) throw err;
     console.log('Connected to PostgreSQL database!');
-  
-    client.query('SELECT username FROM users', (err, result) => {
-      if (err) throw err;
-      console.log(result.rows.map(row => row.username));
-      done(); // release the client back to the pool
+    done(); // release the client back to the pool
     });
-  });
-    
-   
+  
 
 //middleware
 
@@ -50,7 +44,7 @@ app.use((req, res, next) => {
 const users = [];
 
 // Check credentials for database
-/*passport.use(new BasicStrategy(
+passport.use(new BasicStrategy(
     function(username, password, done) {
         pool.query('SELECT * FROM users WHERE username = $1', [username], (error, results) => {
             if (error) {
@@ -73,32 +67,7 @@ const users = [];
             }
         });
     }
-));*/
-
-//Check Credentials //Tällä toimi locaalisti //toimi registeris
-passport.use(new BasicStrategy(
-    function(username, password, done) {
-
-        //console.log('username'+username);
-        //console.log('password'+password);
-
-        const user = users.find(u => u.username === username);
-
-        if (user != null) {
-            
-            if(bcrypt.compareSync(password, user.password)){
-                done(null, user);
-            } else {
-                done(null, false);
-            }
-        } else {
-            done(null, false);
-        }
-
-    }
 ));
-
-
 
 
 //JWT
@@ -122,46 +91,45 @@ passport.use(new JwtStrategy(jwtOptions, function(jwt_payload, done){
 // REQUEST BODY
 
 app.post('/register', (req, res) => {
-   // console.log(req.body);
-
-   const username = req.body.username
-   const password = req.body.password
-
-
-pool.query("INSERT INTO users (username, password) VALUES ($1,$2)",
-[username, password],
- (err, result)=> {
-   console.log(err);
-})
-
-    if('username' in req.body == false){
-        res.status(400);
-        res.json({status: "missing username"})
-        return;
-    }
-
-    if('password' in req.body == false){
-        res.status(400);
-        res.json({status: "missing password"})
-        return;
-    }
-    //hash the password
-    const salt = bcrypt.genSaltSync(6);
-    const passwordHash = bcrypt.hashSync(req.body.password, salt);
-    //console.log("passwordhash" + passwordHash);
-    users.push({id: uuidv4(), username: req.body.username, password: passwordHash});
-   // console.log("user pushed " + users)
-
-    res.status(201).json({ status : "created"})
+    // console.log(req.body);
+ 
     
-
-});
-
-app.get('/my-protected-resource', passport.authenticate('basic',{session: false}),(req, res) => {
-    console.log("Protected resource accessed");
-
-    res.send('This is a protected resource');
-    })
+     if('username' in req.body == false){
+         res.status(400);
+         res.json({status: "missing username"})
+         return;
+     }
+ 
+     if('password' in req.body == false){
+         res.status(400);
+         res.json({status: "missing password"})
+         return;
+     }
+     //hash the password
+     const salt = bcrypt.genSaltSync(6);
+     const passwordHash = bcrypt.hashSync(req.body.password, salt);
+     //console.log("passwordhash" + passwordHash);
+     const id = uuidv4();
+     users.push({id: id, username: req.body.username, password: passwordHash});
+    // console.log("user pushed " + users)
+ 
+    pool.query("INSERT INTO users (id, username, password) VALUES ($1,$2,$3)",
+ [id, req.body.username, passwordHash],
+  (err, result)=> {
+    console.log(err);
+ })
+ 
+     res.status(201).json({ status : "created"})
+     
+ 
+ });
+ 
+ app.get('/my-protected-resource', passport.authenticate('basic',{session: false}),(req, res) => {
+     console.log("Protected resource accessed");
+ 
+     res.send('This is a protected resource');
+     })
+ 
 
 //JWT login
 app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res) => {
