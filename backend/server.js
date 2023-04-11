@@ -156,27 +156,6 @@ app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res
     res.json({jwt : generatedJWT })
 })
 
-
-app.delete('/deleteuser', passport.authenticate('basic',{session: false}) ,(req, res) => {
-    console.log(req.body);
-     if('username' in req.body == false){
-         res.status(400);
-         res.json({status: "missing username"})
-         return;
-     }
- 
-     if('password' in req.body == false){
-         res.status(400);
-         res.json({status: "missing password"})
-         return;
-     }
-
-     users.delete({username: req.body.username, password: req.body.password});
-
-     res.status(201).json({ status : "deleted"})
-
- });a7a8dd275edd0f5a070b1928600bf3c58dbe3a
-
 app.get('/jwt-protected-resource', passport.authenticate('jwt',{session: false}), (req, res) => {
     //console.log(req.user);
 
@@ -189,7 +168,6 @@ app.delete('/delete/:id', (req, res) => {
     const id = Number(req.params.id);
     res.json({ message: `User ${id} deleted successfully` });
   });
-
 
 
 
