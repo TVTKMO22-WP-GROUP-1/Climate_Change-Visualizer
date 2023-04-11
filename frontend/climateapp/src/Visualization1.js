@@ -169,28 +169,28 @@ return (
     </div>
     {view === 'annual' ? (
   <div>
-    <LineChart width={800} height={400} data={combinedYearlyData}>
+    <LineChart width={800} height={400} data={combinedYearlyData} style={{ backgroundColor: 'black' }}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="vuosi" />
       <YAxis />
       <Tooltip />
       <Legend />
-      {!showReconstruction && <Line type="monotone" dataKey="anomalydegc" stroke="green" activeDot={{ r: 8 }} />}
-      {!showReconstruction && <Line type="monotone" dataKey="anomalynorthyear" stroke="blue" activeDot={{ r: 8 }} />}
-      {!showReconstruction && <Line type="monotone" dataKey="anomalysouthyear" stroke="red" activeDot={{ r: 8 }} />}
-      {showReconstruction && <Line type="monotone" dataKey="reconstruction" stroke="black" activeDot={{ r: 8 }} />}
+      {!showReconstruction && <Line type="monotone" dataKey="anomalydegc" stroke="green" dot={false} />}
+      {!showReconstruction && <Line type="monotone" dataKey="anomalynorthyear" stroke="blue" dot={false} />}
+      {!showReconstruction && <Line type="monotone" dataKey="anomalysouthyear" stroke="red" dot={false}/>}
+      {showReconstruction && <Line type="monotone" dataKey="reconstruction" stroke="white" dot={false} />}
     </LineChart>
   </div>
     ) : (
-      <LineChart width={800} height={400} data={combinedMonthlyData} >
+      <LineChart width={800} height={400} data={combinedMonthlyData} style={{ backgroundColor: 'black'}}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="kuukausi" />
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="anomalydegc" stroke="green" activeDot={{ r: 8 }} />
-        <Line type="monotone" dataKey="anomalynorthmonth" stroke="blue" activeDot={{ r: 8 }} />
-        <Line type="monotone" dataKey="anomalysouthmonth" stroke="red" activeDot={{ r: 8 }} />
+        <Line type="monotone" dataKey="anomalydegc" stroke="green" dot={false} />
+        <Line type="monotone" dataKey="anomalynorthmonth" stroke="blue" dot={false}  />
+        <Line type="monotone" dataKey="anomalysouthmonth" stroke="red" dot={false} />
       </LineChart>
     )}
   </div>
