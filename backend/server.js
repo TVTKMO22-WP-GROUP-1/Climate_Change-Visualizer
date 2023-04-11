@@ -221,22 +221,7 @@ app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res
     res.json({jwt : generatedJWT })
 })
 
-app.delete('/deleteuser', passport.authenticate('basic',{session: false}), (req, res) => {
-    //console.log(req);
-    const payload = {
-        user : {
-            id: req.user.id,
-            username: req.user.username
-        }
-    };
 
-    const secretKey = "secretKey";
-    const options = {
-        expiresIn: '1d'//expires in 1 day
-    };
-    const generatedJWT = jwt.sign(payload, secretKey, options)
-    res.json({jwt : generatedJWT })
-})
 
 app.get('/jwt-protected-resource', passport.authenticate('jwt',{session: false}), (req, res) => {
     //console.log(req.user);
@@ -245,6 +230,14 @@ app.get('/jwt-protected-resource', passport.authenticate('jwt',{session: false})
     
     res.send("OK, for user " + req.user.user.username);
 })
+
+app.delete('/delete/:id', (req, res) => {
+    const id = Number(req.params.id);
+    res.json({ message: `User ${id} deleted successfully` });
+  });
+
+
+
 
 let serverInstance = null;
 module.exports = {
