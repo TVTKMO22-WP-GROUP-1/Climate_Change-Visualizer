@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 const {v4: uuidv4} = require('uuid');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
+require('dotenv').config();
 
 app.use(bodyParser.json());
 
@@ -108,7 +109,7 @@ passport.use(new BasicStrategy(
 
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: "secretKey"
+    secretOrKey: process.env.JWT_SECRET_KEY
 }
 
 //JWT 
@@ -213,7 +214,13 @@ app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res
         }
     };
 
-    const secretKey = "secretKey";
+    let secretKey = process.env.JWT_SECRET_KEY
+    console.log("JWT_SECRET_KEY is " + secretKey);
+    if (!secretKey) {
+        console.warn("JWT_SECRET_KEY environment variable is not set. Using default value.");
+        const defaultSecretKey = "mysecretkey";
+        secretKey = defaultSecretKey;
+      };
     const options = {
         expiresIn: '1d'//expires in 1 day
     };
@@ -222,20 +229,8 @@ app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res
 })
 
 app.delete('/deleteuser', passport.authenticate('basic',{session: false}), (req, res) => {
-    //console.log(req);
-    const payload = {
-        user : {
-            id: req.user.id,
-            username: req.user.username
-        }
-    };
 
-    const secretKey = "secretKey";
-    const options = {
-        expiresIn: '1d'//expires in 1 day
-    };
-    const generatedJWT = jwt.sign(payload, secretKey, options)
-    res.json({jwt : generatedJWT })
+
 })
 
 app.get('/jwt-protected-resource', passport.authenticate('jwt',{session: false}), (req, res) => {

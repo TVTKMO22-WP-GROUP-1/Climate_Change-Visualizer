@@ -16,6 +16,7 @@ function GoToLogin() {
   );
 }
 
+
 function GoToSignUp() {
   return (
     <Link to="/signup">
