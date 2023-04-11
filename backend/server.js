@@ -156,27 +156,6 @@ app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res
     res.json({jwt : generatedJWT })
 })
 
-
-app.delete('/deleteuser', passport.authenticate('basic',{session: false}) ,(req, res) => {
-    console.log(req.body);
-     if('username' in req.body == false){
-         res.status(400);
-         res.json({status: "missing username"})
-         return;
-     }
- 
-     if('password' in req.body == false){
-         res.status(400);
-         res.json({status: "missing password"})
-         return;
-     }
-
-     users.delete({username: req.body.username, password: req.body.password});
-
-     res.status(201).json({ status : "deleted"})
-
- });
-
 app.get('/jwt-protected-resource', passport.authenticate('jwt',{session: false}), (req, res) => {
     //console.log(req.user);
 
@@ -184,6 +163,35 @@ app.get('/jwt-protected-resource', passport.authenticate('jwt',{session: false})
     
     res.send("OK, for user " + req.user.user.username);
 })
+
+
+app.get('/users',(req,res) => {
+    pool.query('SELECT * FROM users',(error,results) =>{
+        if (error) {
+            console.error(error);
+          } else {
+            console.log(results.rows) 
+            const values = JSON.stringify(results.rows)
+            res.json({ values }); 
+          }
+    })
+})
+
+
+app.delete('/deleteuser/:username', (req, res) => {
+    const username = req.params.username;
+    pool.query('DELETE FROM users WHERE username = $1', [username], (error, results) => {
+        if (error) {
+            console.error(error);
+        } else {
+            console.log(`Deleted user with username ${username}`);
+            res.json({ message: `User ${username} deleted successfully` });            
+        }
+    })
+  });
+
+
+
 
 let serverInstance = null;
 module.exports = {
