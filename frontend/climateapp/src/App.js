@@ -13,17 +13,15 @@ import { useEffect } from 'react';
 
 function App() {
 
-  //const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  const {userJwt, setUserJwt} = useState(null);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(null);
 
   let authRoutes = <>
       <Route path="/login" element={ <LoginView login ={ (newJwt) =>{
-       // setIsUserLoggedIn(true);
-        setUserJwt(newJwt);
+        setIsUserLoggedIn(true);
       }}/>}/>
       <Route path="/signup" element={ <SignUpView/>}/>
   </>
-  if (userJwt != null) {
+  if (isUserLoggedIn != null) {
       authRoutes = <Route path="/protected" element={ <ProtectedView />}/>
   }
 
@@ -33,9 +31,9 @@ function App() {
     <h1>Climate Change Visualizer</h1>
     <BrowserRouter>
       <Routes>
-      <Route path="/" element={ <Home userLoggedIn={userJwt != null}/>}/>
+      <Route path="/" element={ <Home userLoggedIn={isUserLoggedIn != null}/>}/>
       {authRoutes}
-      <Route path="*" element={ <Home userLoggedIn={userJwt != null}/>}/>
+      <Route path="*" element={ <Home userLoggedIn={isUserLoggedIn != null}/>}/>
       </Routes>
     </BrowserRouter>
     </div>
