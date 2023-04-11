@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 const {v4: uuidv4} = require('uuid');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
+require('dotenv').config();
 
 app.use(bodyParser.json());
 
@@ -18,42 +19,33 @@ app.use(cors());
 //node index.js to start server
 
 //To connect to database 
-/*const { Pool } = require('pg');
+const { Pool } = require('pg');
 const pool = new Pool({
     connectionString: 'postgres://group1db_user:LEjCfIy7NtvcBrP2qB73lon1Z4IInvBM@dpg-cg80u01mbg53mc3cml2g-a.frankfurt-postgres.render.com/group1db?ssl=true',
 
 });
 
-
-
 pool.connect((err, client, done) => {
     if (err) throw err;
     console.log('Connected to PostgreSQL database!');
-  
-    client.query('SELECT username FROM users', (err, result) => {
-      if (err) throw err;
-      console.log(result.rows.map(row => row.username));
-      done(); // release the client back to the pool
+    done(); // release the client back to the pool
     });
-  });
-    */
-   
+  
 
 //middleware
-//const users must be there, otherwise big error
-const users = [];
 
 app.use((req, res, next) => {
-    //console.log("demo middleware...")
+    console.log("demo middleware...")
 
     next();
 })
 
 
-
+//const users must be there, otherwise big error
+const users = [];
 
 // Check credentials for database
-/*passport.use(new BasicStrategy(
+passport.use(new BasicStrategy(
     function(username, password, done) {
         pool.query('SELECT * FROM users WHERE username = $1', [username], (error, results) => {
             if (error) {
@@ -76,39 +68,14 @@ app.use((req, res, next) => {
             }
         });
     }
-));*/
-
-//Check Credentials //Tällä toimi locaalisti //toimi registeris
-passport.use(new BasicStrategy(
-    function(username, password, done) {
-
-        //console.log('username'+username);
-        //console.log('password'+password);
-
-        const user = users.find(u => u.username === username);
-
-        if (user != null) {
-            
-            if(bcrypt.compareSync(password, user.password)){
-                done(null, user);
-            } else {
-                done(null, false);
-            }
-        } else {
-            done(null, false);
-        }
-
-    }
 ));
-
-
 
 
 //JWT
 
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: "secretKey"
+    secretOrKey: process.env.JWT_SECRET_KEY
 }
 
 //JWT 
@@ -124,47 +91,10 @@ passport.use(new JwtStrategy(jwtOptions, function(jwt_payload, done){
 
 // REQUEST BODY
 
-/*app.post('/register', (req, res) => {
-   // console.log(req.body);
-
-   const username = req.body.username
-   const password = req.body.password
-
-
-pool.query("INSERT INTO users (username, password) VALUES ($1,$2)",
-[username, password],
- (err, result)=> {
-   console.log(err);
-})
-
-    if('username' in req.body == false){
-        res.status(400);
-        res.json({status: "missing username"})
-        return;
-    }
-
-    if('password' in req.body == false){
-        res.status(400);
-        res.json({status: "missing password"})
-        return;
-    }
-    //hash the password
-    const salt = bcrypt.genSaltSync(6);
-    const passwordHash = bcrypt.hashSync(req.body.password, salt);
-    //console.log("passwordhash" + passwordHash);
-    users.push({id: uuidv4(), username: req.body.username, password: passwordHash});
-   // console.log("user pushed " + users)
-
-    res.status(201).json({ status : "created"})
-    
-
-});*/
-
-
 app.post('/register', (req, res) => {
     // console.log(req.body);
  
- 
+    
      if('username' in req.body == false){
          res.status(400);
          res.json({status: "missing username"})
@@ -180,28 +110,27 @@ app.post('/register', (req, res) => {
      const salt = bcrypt.genSaltSync(6);
      const passwordHash = bcrypt.hashSync(req.body.password, salt);
      //console.log("passwordhash" + passwordHash);
-     users.push({id: uuidv4(), username: req.body.username, password: passwordHash}); //database
+     const id = uuidv4();
+     users.push({id: id, username: req.body.username, password: passwordHash});
     // console.log("user pushed " + users)
+ 
+    pool.query("INSERT INTO users (id, username, password) VALUES ($1,$2,$3)",
+ [id, req.body.username, passwordHash],
+  (err, result)=> {
+    console.log(err);
+ })
  
      res.status(201).json({ status : "created"})
      
  
-     //Database connection (not tested)
-     /*pool.query('INSERT INTO users (id, username, password) VALUES ($1, $2, $3)', [uuidv4(), req.body.username, passwordHash], (error, results) => {
-         if (error) {
-             throw error;
-         }
-         console.log(users);
-         res.send('OK');*/
  });
-
-
-
-app.get('/my-protected-resource', passport.authenticate('basic',{session: false}),(req, res) => {
-    console.log("Protected resource accessed");
-
-    res.send('This is a protected resource');
-    })
+ 
+ app.get('/my-protected-resource', passport.authenticate('basic',{session: false}),(req, res) => {
+     console.log("Protected resource accessed");
+ 
+     res.send('This is a protected resource');
+     })
+ 
 
 //JWT login
 app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res) => {
@@ -213,7 +142,13 @@ app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res
         }
     };
 
-    const secretKey = "secretKey";
+    let secretKey = process.env.JWT_SECRET_KEY
+    console.log("JWT_SECRET_KEY is " + secretKey);
+    if (!secretKey) {
+        console.warn("JWT_SECRET_KEY environment variable is not set. Using default value.");
+        const defaultSecretKey = "mysecretkey";
+        secretKey = defaultSecretKey;
+      };
     const options = {
         expiresIn: '1d'//expires in 1 day
     };
@@ -222,6 +157,25 @@ app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res
 })
 
 
+app.delete('/deleteuser', passport.authenticate('basic',{session: false}) ,(req, res) => {
+    console.log(req.body);
+     if('username' in req.body == false){
+         res.status(400);
+         res.json({status: "missing username"})
+         return;
+     }
+ 
+     if('password' in req.body == false){
+         res.status(400);
+         res.json({status: "missing password"})
+         return;
+     }
+
+     users.delete({username: req.body.username, password: req.body.password});
+
+     res.status(201).json({ status : "deleted"})
+
+ });a7a8dd275edd0f5a070b1928600bf3c58dbe3a
 
 app.get('/jwt-protected-resource', passport.authenticate('jwt',{session: false}), (req, res) => {
     //console.log(req.user);
