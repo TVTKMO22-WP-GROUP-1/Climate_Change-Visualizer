@@ -164,10 +164,32 @@ app.get('/jwt-protected-resource', passport.authenticate('jwt',{session: false})
     res.send("OK, for user " + req.user.user.username);
 })
 
-app.delete('/delete/:id', (req, res) => {
-    const id = Number(req.params.id);
-    res.json({ message: `User ${id} deleted successfully` });
+
+app.get('/users',(req,res) => {
+    pool.query('SELECT * FROM users',(error,results) =>{
+        if (error) {
+            console.error(error);
+          } else {
+            console.log(results.rows) 
+            const values = JSON.stringify(results.rows)
+            res.json({ values }); 
+          }
+    })
+})
+
+
+app.delete('/deleteuser/:username', (req, res) => {
+    const username = req.params.username;
+    pool.query('DELETE FROM users WHERE username = $1', [username], (error, results) => {
+        if (error) {
+            console.error(error);
+        } else {
+            console.log(`Deleted user with username ${username}`);
+            res.json({ message: `User ${username} deleted successfully` });            
+        }
+    })
   });
+
 
 
 
