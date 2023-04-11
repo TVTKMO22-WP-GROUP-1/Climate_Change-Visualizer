@@ -18,11 +18,13 @@ app.use(cors());
 //node index.js to start server
 
 //To connect to database 
-const { Pool } = require('pg');
+/*const { Pool } = require('pg');
 const pool = new Pool({
     connectionString: 'postgres://group1db_user:LEjCfIy7NtvcBrP2qB73lon1Z4IInvBM@dpg-cg80u01mbg53mc3cml2g-a.frankfurt-postgres.render.com/group1db?ssl=true',
 
 });
+
+
 
 pool.connect((err, client, done) => {
     if (err) throw err;
@@ -34,20 +36,21 @@ pool.connect((err, client, done) => {
       done(); // release the client back to the pool
     });
   });
-    
+    */
    
 
 //middleware
+//const users must be there, otherwise big error
+const users = [];
 
 app.use((req, res, next) => {
-    console.log("demo middleware...")
+    //console.log("demo middleware...")
 
     next();
 })
 
 
-//const users must be there, otherwise big error
-const users = [];
+
 
 // Check credentials for database
 /*passport.use(new BasicStrategy(
@@ -121,7 +124,7 @@ passport.use(new JwtStrategy(jwtOptions, function(jwt_payload, done){
 
 // REQUEST BODY
 
-app.post('/register', (req, res) => {
+/*app.post('/register', (req, res) => {
    // console.log(req.body);
 
    const username = req.body.username
@@ -155,7 +158,44 @@ pool.query("INSERT INTO users (username, password) VALUES ($1,$2)",
     res.status(201).json({ status : "created"})
     
 
-});
+});*/
+
+
+app.post('/register', (req, res) => {
+    // console.log(req.body);
+ 
+ 
+     if('username' in req.body == false){
+         res.status(400);
+         res.json({status: "missing username"})
+         return;
+     }
+ 
+     if('password' in req.body == false){
+         res.status(400);
+         res.json({status: "missing password"})
+         return;
+     }
+     //hash the password
+     const salt = bcrypt.genSaltSync(6);
+     const passwordHash = bcrypt.hashSync(req.body.password, salt);
+     //console.log("passwordhash" + passwordHash);
+     users.push({id: uuidv4(), username: req.body.username, password: passwordHash}); //database
+    // console.log("user pushed " + users)
+ 
+     res.status(201).json({ status : "created"})
+     
+ 
+     //Database connection (not tested)
+     /*pool.query('INSERT INTO users (id, username, password) VALUES ($1, $2, $3)', [uuidv4(), req.body.username, passwordHash], (error, results) => {
+         if (error) {
+             throw error;
+         }
+         console.log(users);
+         res.send('OK');*/
+ });
+
+
 
 app.get('/my-protected-resource', passport.authenticate('basic',{session: false}),(req, res) => {
     console.log("Protected resource accessed");
@@ -181,25 +221,22 @@ app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res
     res.json({jwt : generatedJWT })
 })
 
-app.delete('/deleteuser', passport.authenticate('basic',{session: false}) ,(req, res) => {
-    console.log(req.body);
-     if('username' in req.body == false){
-         res.status(400);
-         res.json({status: "missing username"})
-         return;
-     }
- 
-     if('password' in req.body == false){
-         res.status(400);
-         res.json({status: "missing password"})
-         return;
-     }
+app.delete('/deleteuser', passport.authenticate('basic',{session: false}), (req, res) => {
+    //console.log(req);
+    const payload = {
+        user : {
+            id: req.user.id,
+            username: req.user.username
+        }
+    };
 
-     users.delete({username: req.body.username, password: req.body.password});
-
-     res.status(201).json({ status : "deleted"})
-
- });
+    const secretKey = "secretKey";
+    const options = {
+        expiresIn: '1d'//expires in 1 day
+    };
+    const generatedJWT = jwt.sign(payload, secretKey, options)
+    res.json({jwt : generatedJWT })
+})
 
 app.get('/jwt-protected-resource', passport.authenticate('jwt',{session: false}), (req, res) => {
     //console.log(req.user);

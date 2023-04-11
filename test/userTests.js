@@ -28,6 +28,9 @@ describe('User API tests',function(){
             done();
         })
     })
+<<<<<<< HEAD
+})
+=======
 
     it('POST /jwtLogin test',function(done){
         chai.request(url)
@@ -49,3 +52,4 @@ describe('User API tests',function(){
         })
     })
 })     
+>>>>>>> f400196c5fe2d931286a8c2c698ad3af56f6b2bc
