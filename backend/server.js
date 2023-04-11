@@ -18,13 +18,11 @@ app.use(cors());
 //node index.js to start server
 
 //To connect to database 
-/*const { Pool } = require('pg');
+const { Pool } = require('pg');
 const pool = new Pool({
     connectionString: 'postgres://group1db_user:LEjCfIy7NtvcBrP2qB73lon1Z4IInvBM@dpg-cg80u01mbg53mc3cml2g-a.frankfurt-postgres.render.com/group1db?ssl=true',
 
 });
-
-
 
 pool.connect((err, client, done) => {
     if (err) throw err;
@@ -34,17 +32,16 @@ pool.connect((err, client, done) => {
   
 
 //middleware
-//const users must be there, otherwise big error
-const users = [];
 
 app.use((req, res, next) => {
-    //console.log("demo middleware...")
+    console.log("demo middleware...")
 
     next();
 })
 
 
-
+//const users must be there, otherwise big error
+const users = [];
 
 // Check credentials for database
 passport.use(new BasicStrategy(
@@ -152,22 +149,25 @@ app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res
     res.json({jwt : generatedJWT })
 })
 
-app.delete('/deleteuser', passport.authenticate('basic',{session: false}), (req, res) => {
-    //console.log(req);
-    const payload = {
-        user : {
-            id: req.user.id,
-            username: req.user.username
-        }
-    };
+app.delete('/deleteuser', passport.authenticate('basic',{session: false}) ,(req, res) => {
+    console.log(req.body);
+     if('username' in req.body == false){
+         res.status(400);
+         res.json({status: "missing username"})
+         return;
+     }
+ 
+     if('password' in req.body == false){
+         res.status(400);
+         res.json({status: "missing password"})
+         return;
+     }
 
-    const secretKey = "secretKey";
-    const options = {
-        expiresIn: '1d'//expires in 1 day
-    };
-    const generatedJWT = jwt.sign(payload, secretKey, options)
-    res.json({jwt : generatedJWT })
-})
+     users.delete({username: req.body.username, password: req.body.password});
+
+     res.status(201).json({ status : "deleted"})
+
+ });
 
 app.get('/jwt-protected-resource', passport.authenticate('jwt',{session: false}), (req, res) => {
     //console.log(req.user);
