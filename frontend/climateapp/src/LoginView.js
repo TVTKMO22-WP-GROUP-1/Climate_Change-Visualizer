@@ -27,6 +27,8 @@ export default function LoginView(props) {
       );
   
       console.log(result);
+      const receiwedJWT = result.data.token;
+      props.login(receiwedJWT);
       setLoginProcessState("success");
       setTimeout(() => {
         navigate('/', { replace: true }); //Navigate to home page

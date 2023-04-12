@@ -8,21 +8,33 @@ import ProtectedView from './ProtectedView';
 import SignUpView from './SignUpView';
 import DeleteView from './DeleteView';
 import { BrowserRouter, Route, Link, Routes} from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 
 function App() {
+
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(null);
+
+  let authRoutes = <>
+      <Route path="/login" element={ <LoginView login ={ (newJwt) =>{
+        setIsUserLoggedIn(true);
+      }}/>}/>
+      <Route path="/signup" element={ <SignUpView/>}/>
+  </>
+  if (isUserLoggedIn != null) {
+      authRoutes = <Route path="/protected" element={ <ProtectedView />}/>
+  }
+
   return (
     <div className="App">
       <div className='header'>
     <h1>Climate Change Visualizer</h1>
-    <h2>Login status: </h2>
     <BrowserRouter>
       <Routes>
-      <Route path="/" element={ <Home/>}/>
-      <Route path="/login" element={ <LoginView/>}/>      
-      <Route path="/signup" element={ <SignUpView/>}/>
-      <Route path="/delete" element={ <DeleteView/>}/>
+      <Route path="/" element={ <Home userLoggedIn={isUserLoggedIn != null}/>}/>
+      {authRoutes}
+      <Route path="*" element={ <Home userLoggedIn={isUserLoggedIn != null}/>}/>
       </Routes>
     </BrowserRouter>
     </div>
