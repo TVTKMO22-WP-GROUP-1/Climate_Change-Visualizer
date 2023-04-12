@@ -138,9 +138,10 @@ app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res
         user : {
             id: req.user.id,
             username: req.user.username
+            
         }
+        
     };
-
     let secretKey = process.env.JWT_SECRET_KEY
     console.log("JWT_SECRET_KEY is " + secretKey);
     if (!secretKey) {
@@ -159,8 +160,7 @@ app.get('/jwt-protected-resource', passport.authenticate('jwt',{session: false})
     //console.log(req.user);
 
     console.log('User Id from JWT is ' + req.user.user.id);
-    
-    res.send("OK, for user " + req.user.user.username);
+    res.send("OK, for user " + req.user.user.username); 
 })
 
 app.get('/users',(req,res) => {
