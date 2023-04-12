@@ -142,7 +142,8 @@ app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res
         }
         
     };
-    let secretKey = process.env.JWT_SECRET_KEY
+
+    let secretKey = process.env.JWT_SECRET_KEY;
     console.log("JWT_SECRET_KEY is " + secretKey);
     if (!secretKey) {
         console.warn("JWT_SECRET_KEY environment variable is not set. Using default value.");

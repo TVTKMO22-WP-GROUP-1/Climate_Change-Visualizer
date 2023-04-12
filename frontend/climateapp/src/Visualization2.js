@@ -121,7 +121,7 @@ export default function Visualization2() {
     </div>
     {view === 'co2' ? (
   <div>
-    <LineChart width={600} height={300} data={combinedData} style={{ backgroundColor: 'black' }}>
+    <LineChart width={800} height={400} data={combinedData} style={{ backgroundColor: 'black' }}>
       <XAxis dataKey="year" />
       <YAxis />
       <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
