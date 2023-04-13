@@ -130,7 +130,6 @@ app.post('/register', (req, res) => {
  
      res.send('This is a protected resource');
      })
- 
 
 //JWT login
 app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res) => {
@@ -139,7 +138,9 @@ app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res
         user : {
             id: req.user.id,
             username: req.user.username
+            
         }
+        
     };
 
     let secretKey = process.env.JWT_SECRET_KEY;
@@ -160,26 +161,22 @@ app.get('/jwt-protected-resource', passport.authenticate('jwt',{session: false})
     //console.log(req.user);
 
     console.log('User Id from JWT is ' + req.user.user.id);
-    
-    res.send("OK, for user " + req.user.user.username);
+    res.send("OK, for user " + req.user.user.username); 
 })
-
 
 app.get('/users',(req,res) => {
     pool.query('SELECT * FROM users',(error,results) =>{
         if (error) {
             console.error(error);
           } else {
-            console.log(results.rows) 
             const values = JSON.stringify(results.rows)
-            res.json({ values }); 
+            res.send({ values }); 
           }
     })
 })
-
-
-app.delete('/deleteuser/:username', (req, res) => {
+app.delete('/users/:username', (req, res) => {
     const username = req.params.username;
+    //console.log(username);
     pool.query('DELETE FROM users WHERE username = $1', [username], (error, results) => {
         if (error) {
             console.error(error);
@@ -189,9 +186,6 @@ app.delete('/deleteuser/:username', (req, res) => {
         }
     })
   });
-
-
-
 
 let serverInstance = null;
 module.exports = {
