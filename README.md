@@ -4,7 +4,7 @@ Tekijät: Sampo Sarlin, Sampo Ikonen, Samuli Järvensivu ja Tuomas Jokikokko
 
 ## Esittely
 
-Climate Change Visualizer on Oulun ammattikorkeakoulun 2. vuosikurssin opiskelijoiden toteuttama web-sovellusprojekti. Projektissa toteutettiin neljän hengen ryhmätyönä web-sivu, joka erilaisin graafein ja diagrammein havainnollistaa ilmastonmuutoksen etenemistä vuosien aikana. Diagrammeista voidaan valita maa, jonka vaikutusta ilmastonmuutokseen halutaan tarkastella. Graafit tuodaan web-sivulle ChartJS:n avulla näkyviin, ja graafeihin liittyvät tiedot on tallennettu tietokantaan. Käyttäjät voivat tehdä sivustolle oman tunnuksen sekä muokata näkymää.
+Climate Change Visualizer on Oulun ammattikorkeakoulun 2. vuosikurssin opiskelijoiden toteuttama web-sovellusprojekti. Projektissa toteutettiin neljän hengen ryhmätyönä web-sivu, joka erilaisin graafein ja diagrammein havainnollistaa ilmastonmuutoksen etenemistä. Diagrammeista voidaan valita maa, jonka vaikutusta ilmastonmuutokseen halutaan tarkastella. Graafit tuodaan web-sivulle ChartJS:n avulla näkyviin, ja graafeihin liittyvät tiedot on tallennettu tietokantaan. Käyttäjät voivat tehdä sivustolle oman tunnuksen sekä muokata näkymää.
 Jokainen projektiryhmän jäsen toimi Full Stack -kehittäjänä, eli työsti sekä front- että backend-puolia. Projektin frontend toteutettiin Reactilla ja backend Javalla. Tietokantayhteys luotiin PostgreSQL-alustalle, ja web-sivu julkaistiin kaikkien saataville Render-palvelun avulla. Kirjaamisympäristönä toimi Visual Studio Code, ja versionhallintaa varten käytettiin GitHub-työympäristöä. GitHubin organisaatio- ja projektityökalua käytettiin työtehtävien jakamiseen ja projektin etenemisen havainnointiin.
 
 ## Sovelluksen toiminnallisuudet
