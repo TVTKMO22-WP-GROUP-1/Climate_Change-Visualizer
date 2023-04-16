@@ -1,13 +1,16 @@
+import './Visualization.css';
 import React, { useState, useEffect } from 'react';
 import { groupBy } from 'lodash';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 export default function Visualization4() {
-/*
+
   const [chinaCo2, setChinaCo2] = useState([]);
   const [indiaCo2, setIndiaCo2] = useState([]);
   const [usaCo2, setUsaCo2] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('china');
+
+  const _ = require('lodash'); 
 
   useEffect(() => {
     fetch('http://localhost:3001/v4chinaco2')
@@ -26,10 +29,10 @@ export default function Visualization4() {
       .then(response => response.json())
       .then(usaCo2 => setUsaCo2(usaCo2));
   }, []);
-
+/*
  // Combine data for each year into a single array
  const data = Object.entries(
-  _.groupBy([...chinaCo2, ...indiaCo2, ...usaCo2], 'vuosi')
+  groupBy([...chinaCo2, ...indiaCo2, ...usaCo2], 'vuosi')
 ).map(([year, values]) => {
   const countryData = {};
   values.forEach(({ country, MillionsTonsCo2 }) => {
@@ -39,6 +42,37 @@ export default function Visualization4() {
     year: Number(year),
     ...countryData
   };
+});*/
+
+const chinaCo2Data = _(chinaCo2)
+.groupBy('vuosi')
+.map((values, year) => ({
+  year,
+  chinaCo2: _.meanBy(values, 'MillionsTonsCo2')
+}))
+.value();
+
+
+const indiaCo2Data = _(indiaCo2)
+.groupBy('vuosi')
+.map((values, year) => ({
+  year,
+  indiaCo2: _.meanBy(values, 'MillionsTonsCo2')
+}))
+.value();
+
+const usaCo2Data = _(usaCo2)
+.groupBy('vuosi')
+.map((values, year) => ({
+  year,
+  usaCo2: _.meanBy(values, 'MillionsTonsCo2')
+}))
+.value();
+
+const countryData = _.mergeWith(chinaCo2Data, indiaCo2Data, usaCo2Data, (objValue, srcValue) => {
+  if (_.isArray(objValue)) {
+    return objValue.concat(srcValue);
+  }
 });
 
   return (
@@ -50,7 +84,7 @@ export default function Visualization4() {
           <button onClick={() => setSelectedCountry('india')}>India</button>
           <button onClick={() => setSelectedCountry('usa')}>USA</button>
         </div>
-        <LineChart width={800} height={400} data={data}>
+        <LineChart width={800} height={400} data={countryData}>
           <XAxis dataKey="year" />
           <YAxis />
           <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
@@ -70,5 +104,5 @@ export default function Visualization4() {
     </div>
   )
 
-  */
+  
 }
