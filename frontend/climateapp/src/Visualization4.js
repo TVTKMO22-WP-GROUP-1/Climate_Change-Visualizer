@@ -8,8 +8,11 @@ export default function Visualization4() {
   const [chinaCo2, setChinaCo2] = useState([]);
   const [indiaCo2, setIndiaCo2] = useState([]);
   const [usaCo2, setUsaCo2] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState('china');
-
+  const [selectedCountry1, setSelectedCountry1] = useState('');
+  const [selectedCountry2, setSelectedCountry2] = useState('');
+  const [selectedCountry3, setSelectedCountry3] = useState('');
+  const [buttonClicks, setButtonClicks] = useState(0);
+  
   const _ = require('lodash'); 
 
   useEffect(() => {
@@ -29,20 +32,6 @@ export default function Visualization4() {
       .then(response => response.json())
       .then(usaCo2 => setUsaCo2(usaCo2));
   }, []);
-/*
- // Combine data for each year into a single array
- const data = Object.entries(
-  groupBy([...chinaCo2, ...indiaCo2, ...usaCo2], 'vuosi')
-).map(([year, values]) => {
-  const countryData = {};
-  values.forEach(({ country, MillionsTonsCo2 }) => {
-    countryData[country.toLowerCase()] = MillionsTonsCo2;
-  });
-  return {
-    year: Number(year),
-    ...countryData
-  };
-});*/
 
 const chinaCo2Data = _(chinaCo2)
 .groupBy('vuosi')
@@ -73,30 +62,71 @@ const countryData = _.mergeWith(chinaCo2Data, indiaCo2Data, usaCo2Data, (objValu
   if (_.isArray(objValue)) {
     return objValue.concat(srcValue);
   }
-});
+}).map(({ year, chinaCo2, indiaCo2, usaCo2 }) => ({ year, chinaCo2, indiaCo2, usaCo2 }));
+
+
+const handleButtonClick1 = (country) => {
+  if (buttonClicks === 1) {
+    setSelectedCountry1('');
+  }
+  setButtonClicks(buttonClicks + 1);
+  if (selectedCountry1 === country) {
+    setSelectedCountry1('');
+    setButtonClicks(0);
+  } else {
+    setSelectedCountry1(country);
+  }
+};
+
+const handleButtonClick2 = (country) => {
+  if (buttonClicks === 1) {
+    setSelectedCountry2('');
+  }
+  setButtonClicks(buttonClicks + 1);
+  if (selectedCountry2 === country) {
+    setSelectedCountry2('');
+    setButtonClicks(0);
+  } else {
+    setSelectedCountry2(country);
+  }
+};
+
+const handleButtonClick3 = (country) => {
+  if (buttonClicks === 1) {
+    setSelectedCountry3('');
+  }
+  setButtonClicks(buttonClicks + 1);
+  if (selectedCountry3 === country) {
+    setSelectedCountry3('');
+    setButtonClicks(0);
+  } else {
+    setSelectedCountry3(country);
+  }
+};
 
   return (
     <div className="visualization-container">
       <div className="visualization-block">
         <p>YOU ARE NOW LOOKING AT VISUALIZATION 4</p>
         <div>
-          <button onClick={() => setSelectedCountry('china')}>China</button>
-          <button onClick={() => setSelectedCountry('india')}>India</button>
-          <button onClick={() => setSelectedCountry('usa')}>USA</button>
+        <button onClick={() => handleButtonClick1('china')}>China</button>
+          <button onClick={() => handleButtonClick2('india')}>India</button>
+          <button onClick={() => handleButtonClick3('usa')}>USA</button>
         </div>
-        <LineChart width={800} height={400} data={countryData}>
+        <LineChart width={800} height={400} data={countryData} style={{ backgroundColor: 'black'}}>
           <XAxis dataKey="year" />
-          <YAxis />
+          <YAxis yAxisId="left" dataKey="MillionsTonsCo2" orientation="left"  />
           <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
           <Tooltip />
           <Legend />
-          {selectedCountry === 'china' && (
+          
+          {selectedCountry1 === 'china' && (
             <Line type="monotone" dataKey="china" stroke="#8884d8" />
           )}
-          {selectedCountry === 'india' && (
+          {selectedCountry2 === 'india' && (
             <Line type="monotone" dataKey="india" stroke="#82ca9d" />
           )}
-          {selectedCountry === 'usa' && (
+          {selectedCountry3 === 'usa' && (
             <Line type="monotone" dataKey="usa" stroke="#ffc658" />
           )}
         </LineChart>
