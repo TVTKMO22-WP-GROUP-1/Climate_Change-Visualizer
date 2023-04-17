@@ -83,7 +83,6 @@ export default function Visualization3() {
       return (
         <LineChart width={1500} height={800} data={combinedCarbonData} style={{ backgroundColor: 'black'}}>
           <XAxis dataKey="year" />
-
           <YAxis yAxisId1="left" dataKey="carbondioxide" orientation="left"  />
           <YAxis yAxisId="right" dataKey="gastannual" orientation="right" />
           <CartesianGrid strokeDasharray="3 3" />
