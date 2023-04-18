@@ -6,6 +6,7 @@ import Home from './Home';
 import LoginView from './LoginView';
 import ProtectedView from './ProtectedView';
 import SignUpView from './SignUpView';
+import DeleteView from './DeleteView';
 import { BrowserRouter, Route, Link, Routes} from 'react-router-dom';
 import { useEffect } from 'react';
 
