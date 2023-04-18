@@ -1,7 +1,7 @@
 import './Visualization.css';
 import React, { useState, useEffect } from 'react';
 import { groupBy } from 'lodash';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 export default function Visualization1() {
   const [yearData, setYearData] = useState([]);
@@ -151,7 +151,7 @@ export default function Visualization1() {
 
 
 return (
-  <div>
+  <div className='visualization-block'>
     <h1>Visualization 1</h1>
     <label>
         Show Reconstruction Line
@@ -168,30 +168,30 @@ return (
       </label>
     </div>
     {view === 'annual' ? (
-  <div>
-    <LineChart width={800} height={400} data={combinedYearlyData} style={{ backgroundColor: 'black' }}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="vuosi" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      {!showReconstruction && <Line type="monotone" dataKey="anomalydegc" stroke="green" dot={false} />}
-      {!showReconstruction && <Line type="monotone" dataKey="anomalynorthyear" stroke="blue" dot={false} />}
-      {!showReconstruction && <Line type="monotone" dataKey="anomalysouthyear" stroke="red" dot={false}/>}
-      {showReconstruction && <Line type="monotone" dataKey="reconstruction" stroke="white" dot={false} />}
-    </LineChart>
-  </div>
-    ) : (
-      <LineChart width={800} height={400} data={combinedMonthlyData} style={{ backgroundColor: 'black'}}>
+  <div className='visualization-container'>
+      <LineChart width={800} height={400} data={combinedYearlyData} style={{ backgroundColor: 'black' }}>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="kuukausi" />
+        <XAxis dataKey="vuosi" />
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="anomalydegc" stroke="green" dot={false} />
-        <Line type="monotone" dataKey="anomalynorthmonth" stroke="blue" dot={false}  />
-        <Line type="monotone" dataKey="anomalysouthmonth" stroke="red" dot={false} />
+       {!showReconstruction && <Line type="monotone" dataKey="anomalydegc" stroke="green" dot={false} />}
+        {!showReconstruction && <Line type="monotone" dataKey="anomalynorthyear" stroke="blue" dot={false} />}
+        {!showReconstruction && <Line type="monotone" dataKey="anomalysouthyear" stroke="red" dot={false}/>}
+        {showReconstruction && <Line type="monotone" dataKey="reconstruction" stroke="white" dot={false} />}
       </LineChart>
+  </div>
+    ) : (
+        <LineChart width={800} height={400} data={combinedMonthlyData} style={{ backgroundColor: 'black'}}>
+         <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="kuukausi" />
+         <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="anomalydegc" stroke="green" dot={false} />
+          <Line type="monotone" dataKey="anomalynorthmonth" stroke="blue" dot={false}  />
+          <Line type="monotone" dataKey="anomalysouthmonth" stroke="red" dot={false} />
+       </LineChart>
     )}
   </div>
 );
