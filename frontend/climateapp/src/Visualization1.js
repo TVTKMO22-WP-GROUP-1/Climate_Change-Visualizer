@@ -169,7 +169,7 @@ return (
     </div>
     {view === 'annual' ? (
   <div>
-    <LineChart width={1200} height={400} data={combinedYearlyData} style={{ backgroundColor: 'black' }}>
+    <LineChart width={800} height={400} data={combinedYearlyData} style={{ backgroundColor: 'black' }}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="vuosi" />
       <YAxis />
@@ -182,7 +182,7 @@ return (
     </LineChart>
   </div>
     ) : (
-      <LineChart width={1200} height={400} data={combinedMonthlyData} style={{ backgroundColor: 'black'}}>
+      <LineChart width={800} height={400} data={combinedMonthlyData} style={{ backgroundColor: 'black'}}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="kuukausi" />
         <YAxis />
