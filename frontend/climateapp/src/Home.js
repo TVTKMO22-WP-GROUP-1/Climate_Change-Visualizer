@@ -86,7 +86,6 @@ function CreateUrlButton(e) {
 export default function Home(props) {
   return (
     <div>
-    <h1>this is home view </h1>
     <div>
       User login status: {props.userLoggedIn ? "Logged in" : "Not logged in" }
     </div>

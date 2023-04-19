@@ -1,7 +1,7 @@
 import './Visualization.css';
 import React, { useState, useEffect } from 'react';
 import { groupBy } from 'lodash';
-import { Scatter, Cell, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, } from 'recharts';
+import { Scatter, Cell, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 
 export default function Visualization3() {
@@ -81,17 +81,21 @@ export default function Visualization3() {
     });
  
       return (
-        <LineChart width={1500} height={800} data={combinedCarbonData} style={{ backgroundColor: 'black'}}>
-          <XAxis dataKey="year" />
-
-          <YAxis yAxisId1="left" dataKey="carbondioxide" orientation="left"  />
-          <YAxis yAxisId="right" dataKey="gastannual" orientation="right" />
-          <CartesianGrid strokeDasharray="3 3" />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="carbondioxide" stroke="blue" dot={false} yAxisId1="left" />
-          <Line type="monotone" dataKey="gastannual" stroke="red" dot={false} yAxisId="right"/>
-        </LineChart>
+        <div className='visualization-block'>
+          <h1>Visualization 3</h1>
+          <div className='visualization-container'>
+            <LineChart width={800} height={400} data={combinedCarbonData} style={{ backgroundColor: 'black'}}>
+            <XAxis dataKey="year" />
+            <YAxis yAxisId1="left" dataKey="carbondioxide" orientation="left"  />
+            <YAxis yAxisId="right" dataKey="gastannual" orientation="right" />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Tooltip />
+             <Legend />
+            <Line type="monotone" dataKey="carbondioxide" stroke="blue" dot={false} yAxisId1="left" />
+            <Line type="monotone" dataKey="gastannual" stroke="red" dot={false} yAxisId="right"/>
+            </LineChart>
+          </div>
+        </div>
       );
 
 }

@@ -1,11 +1,40 @@
+@media screen and (max-width: 1366px) {
+  body p {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  body p {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body p {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  body p {
+    font-size: 8px;
+  }
+}
 
 .App {
   text-align: center;
   background-color: #4e4e4e;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .header{
   background-color: #3e4a86;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   color: #ececec;
   padding: 20px;
   border-radius: 5px;
@@ -43,6 +72,7 @@
 
 .visualization-container {
   display: flex;
+  flex: 1;
   flex-direction: row;
   justify-content: center;
 }
@@ -75,17 +105,20 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
 }
 .v3 {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .v4-v5 {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .chart-container {
