@@ -25,10 +25,16 @@
 .App {
   text-align: center;
   background-color: #4e4e4e;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .header{
   background-color: #3e4a86;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   color: #ececec;
   padding: 20px;
   border-radius: 5px;

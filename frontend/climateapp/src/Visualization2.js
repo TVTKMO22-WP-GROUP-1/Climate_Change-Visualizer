@@ -126,7 +126,7 @@ export default function Visualization2() {
       <XAxis dataKey="year" />
       <YAxis />
       <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-      <Tooltip />
+      <Tooltip   labelStyle={{ color: 'black' }} />
       <Legend />
       <Line type="monotone" dataKey="co2annual" stroke="#8884d8" dot={false} />
       <Line type="monotone" dataKey="co2monthly" stroke="#82ca9d" dot={false}/>
@@ -138,7 +138,7 @@ export default function Visualization2() {
       <XAxis dataKey="year" />
       <YAxis />
       <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-      <Tooltip />
+      <Tooltip   labelStyle={{ color: 'black' }} />
       <Legend />
       <Line type="monotone" dataKey="icecore1" stroke="#8884d8" dot={false} />
       <Line type="monotone" dataKey="icecore2" stroke="#82ca9d" dot={false}/>
