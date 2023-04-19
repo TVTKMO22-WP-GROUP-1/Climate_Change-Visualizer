@@ -173,7 +173,7 @@ return (
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="vuosi" />
         <YAxis />
-        <Tooltip />
+        <Tooltip   labelStyle={{ color: 'black' }} />
         <Legend />
        {!showReconstruction && <Line type="monotone" dataKey="anomalydegc" stroke="green" dot={false} />}
         {!showReconstruction && <Line type="monotone" dataKey="anomalynorthyear" stroke="blue" dot={false} />}
@@ -186,7 +186,7 @@ return (
          <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="kuukausi" />
          <YAxis />
-          <Tooltip />
+         <Tooltip   labelStyle={{ color: 'black' }} />
           <Legend />
           <Line type="monotone" dataKey="anomalydegc" stroke="green" dot={false} />
           <Line type="monotone" dataKey="anomalynorthmonth" stroke="blue" dot={false}  />

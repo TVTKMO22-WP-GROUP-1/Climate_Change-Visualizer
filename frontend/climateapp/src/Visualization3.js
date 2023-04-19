@@ -1,7 +1,7 @@
 import './Visualization.css';
 import React, { useState, useEffect } from 'react';
 import { groupBy } from 'lodash';
-import { Scatter, Cell, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import {Bar, Scatter, Cell, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine, Dot, ComposedChart, ScatterChart } from 'recharts';
 
 
 export default function Visualization3() {
@@ -46,6 +46,18 @@ export default function Visualization3() {
     }))
     .value();
 
+   /*const eventDataByYear = _(eventData)
+    .groupBy('vuosi')
+    .map((values, year) => ({
+      year,
+      event: _.reduce(values, (result, value) => `${result}${value.events} `, '')
+    }))
+    .map((item) => ({
+      ...item,
+      event: item.event.trim()
+    }))
+    .value();*/
+
     const eventDataByYear = _(eventData)
     .groupBy('vuosi')
     .map((values, year) => ({
@@ -58,42 +70,36 @@ export default function Visualization3() {
     }))
     .value();
 
-    console.log(eventDataByYear)
-    
-    /*const data = carbonDataByYear.map(carbon => ({
-      year: carbon.year,
-      carbondioxide: carbon.co2annual,
-      gastannual: gastDataByYear.find(gast => gast.year === carbon.year)?.gastannual,
-      event: eventDataByYear.find(event => event.year === carbon.year)?.event,
-    }));
-    
-    console.log(data)*/
+
 
     const combinedCarbonData = carbonDataByYear.map(year => {
       const gast = gastDataByYear.find(gast => gast.year === year.year);
-      const event = eventDataByYear.find(event => event.year === year.year);
+      const event = eventDataByYear.find(event => event.year === year.year) || { year: year.year, event: null };
       return {
         year: year.year,
         carbondioxide: year.co2annual,
         gastannual: gast?.gastannual ?? null,
-        event: event?.event ?? null,
+        event: event?.event,
       };
     });
+
  
+    console.log()
       return (
         <div className='visualization-block'>
           <h1>Visualization 3</h1>
           <div className='visualization-container'>
-            <LineChart width={800} height={400} data={combinedCarbonData} style={{ backgroundColor: 'black'}}>
-            <XAxis dataKey="year" />
-            <YAxis yAxisId1="left" dataKey="carbondioxide" orientation="left"  />
-            <YAxis yAxisId="right" dataKey="gastannual" orientation="right" />
-            <CartesianGrid strokeDasharray="3 3" />
-            <Tooltip />
-             <Legend />
-            <Line type="monotone" dataKey="carbondioxide" stroke="blue" dot={false} yAxisId1="left" />
-            <Line type="monotone" dataKey="gastannual" stroke="red" dot={false} yAxisId="right"/>
-            </LineChart>
+          <ComposedChart width={800} height={400} data={combinedCarbonData} style={{ backgroundColor: 'black' }}>
+          <XAxis dataKey="year" />
+          <YAxis yAxisId1="left" dataKey="carbondioxide" orientation="left" />
+          <YAxis yAxisId="right" dataKey="gastannual" orientation="right" />
+          <CartesianGrid strokeDasharray="3 3" />
+          <Tooltip   labelStyle={{ color: 'black' }} />
+          <Legend />
+          <Line type="monotone" dataKey="carbondioxide" stroke="blue" dot={false} yAxisId1="left" />
+          <Line type="monotone" dataKey="gastannual" stroke="red" dot={false} yAxisId="right" />
+          <Line type="monotone" dataKey="event" stroke="green" connectNulls={true}/>
+  </ComposedChart>
           </div>
         </div>
       );
