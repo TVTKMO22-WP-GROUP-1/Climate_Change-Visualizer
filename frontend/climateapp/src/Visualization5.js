@@ -1,6 +1,6 @@
 import './Visualization.css';
 import React, { useState, useEffect, PureComponent } from 'react';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer, LabelList, Legend , Tooltip, } from 'recharts';
+import { PieChart, Pie, Sector, Cell, ResponsiveContainer, LabelList, Legend , Tooltip, Line } from 'recharts';
 
 export default function Visualization5() {
   const _ = require('lodash');
@@ -9,6 +9,8 @@ export default function Visualization5() {
   const [wasteData, setWasteData] = useState([]);
   const [industrialData, setIndustrialData] = useState([]);
   const [globalData, setglobalData] = useState([]);
+  const mainCategoriesArray = [energyData,industrialData,agricultureData,wasteData];
+  const array = [];
 
   useEffect(() => {
     fetch('http://localhost:3001/v5globalagricultureforestrylanduse')
@@ -52,25 +54,23 @@ export default function Visualization5() {
     </text>
   );
 };
-
-
-const CustomTooltip = ({ active, payload, label}) => {
-  if (active && payload && payload.length) {
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active) {
     return (
-      <div className="custom-tooltip">
-        <p className="label">{`${label} : ${payload[0].value}`}</p>
+      <div
+      className='custom-tooltip'
+      >
+        <label> {`${globalData[payload[0].name].sector} : ${payload[0].value}%`} </label>
       </div>
-
-    );
+    )
   }
   return null;
 };
-
   return (
     <div className='visualization-block'>
       <h1>Visualization 5</h1>
-        <PieChart width={900} height={400}>
-          <Tooltip content={<CustomTooltip />} />
+        <PieChart width={900} height={500}>
+        <Tooltip content={<CustomTooltip />} />
           <Pie
             data={globalData}
             cx="50%"
@@ -83,48 +83,47 @@ const CustomTooltip = ({ active, payload, label}) => {
           >
               {globalData.map((entry,clicked) => (
               <Cell 
+              style={{outline: 'none'}}
               key={`cell-${clicked}`} 
               fill={COLORS[clicked % COLORS.length]} 
               onClick={(e) => {
+                for (let i = 0; i < mainCategoriesArray[clicked].length; i++) {
+                  switch (clicked) {
+                    case 0:
+                      array.push(energyData[i].sector + ": " + energyData[i].globalemissionpercent + "\n");
+                      break;
+                    case 1:
+                      array.push(industrialData[i].sector + ": " + industrialData[i].globalemissionpercent + "\n");
+                      break;
+                    case 2:
+                      array.push(agricultureData[i].sector + ": " + agricultureData[i].globalemissionpercent + "\n");
+                      break;
+                    case 3:
+                      array.push(wasteData[i].sector + ": " + wasteData[i].globalemissionpercent + "\n");
+                      break;
+                  }}
 
-                const Energy = 0;
-                const Industrial = 1;
-                const Agriculture = 2;
-                const Waste = 3;
-                const sectors = [];
-
-                if (clicked === Energy) {
-                  for (let i = 0; i < energyData.length; i++) {
-                    sectors[i] = energyData[i].sector + " " + energyData[i].globalemissionpercent + "\n"
-                  }
-                  alert("Energy clicked: " + sectors)
-                  sectors.length=0;
-
-                } else if (clicked === Industrial) {
-                  for (let i = 0; i < industrialData.length; i++) {
-                    sectors[i] = industrialData[i].sector + " " + industrialData[i].globalemissionpercent + "\n"
-                  }
-                  alert("Industrial clicked: " + sectors)
-                  sectors.length=0;
-
-                } else if (clicked === Agriculture) {
-                  for (let i = 0; i < agricultureData.length; i++) {
-                    sectors[i] = agricultureData[i].sector + " " + agricultureData[i].globalemissionpercent + "\n"
-                  }
-                  alert("Agriculture clicked: " + sectors)
-                  sectors.length=0;
-
-                } else if (clicked === Waste) {
-                  for (let i = 0; i < wasteData.length; i++) {
-                    sectors[i] = wasteData[i].sector + " " + wasteData[i].globalemissionpercent + "\n"
-                  }
-                  alert("Waste clicked: " + sectors)
-                  sectors.length=0;
-                }}
-                }
+                  
+              alert(array)
+              while (array.length > 0) {
+                array.pop();
+              }
+              }}
                 />
             ))}
           </Pie>
+
+          <Legend
+  payload={
+    globalData.map(
+      (item, index) => ({
+        id: item.name,
+        value: `${globalData[index].sector}`,
+        color: COLORS[index % COLORS.length]
+      })
+    )
+  }
+/>
         </PieChart>
         </div>
     )
