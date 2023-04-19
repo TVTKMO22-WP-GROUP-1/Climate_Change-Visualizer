@@ -235,7 +235,7 @@ app.get('/globalv1annual', (req, res) => {
           });
           });
 
-        app.get('v5globalwaste', (req, res) => {
+        app.get('/v5globalwaste', (req, res) => {
           pool.query('SELECT * FROM v5globalwaste', (error, results) => {
               if (error) {
               throw error;
