@@ -105,14 +105,12 @@ const handleButtonClick3 = (country) => {
 };
 
   return (
-    <div className="visualization-container">
-      <div className="visualization-block">
-        <p>YOU ARE NOW LOOKING AT VISUALIZATION 4</p>
-        <div>
-        <button onClick={() => handleButtonClick1('china')}>China</button>
-          <button onClick={() => handleButtonClick2('india')}>India</button>
-          <button onClick={() => handleButtonClick3('usa')}>USA</button>
-        </div>
+    <div className="visualization-block">
+      <h1>Visualization 4</h1>
+      <button onClick={() => handleButtonClick1('china')}>China</button>
+      <button onClick={() => handleButtonClick2('india')}>India</button>
+      <button onClick={() => handleButtonClick3('usa')}>USA</button>
+      <div className="visualization-container">
         <LineChart width={800} height={400} data={countryData} style={{ backgroundColor: 'black'}}>
           <XAxis dataKey="year" />
           <YAxis yAxisId="left" dataKey="MillionsTonsCo2" orientation="left"  />

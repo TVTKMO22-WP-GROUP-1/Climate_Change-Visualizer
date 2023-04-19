@@ -107,7 +107,7 @@ export default function Visualization2() {
 
 
   return (
-    <div>
+    <div className='visualization-block'>
     <h1>Visualization 2</h1>
     <div>
       <label>
@@ -119,8 +119,9 @@ export default function Visualization2() {
         icecore
       </label>
     </div>
+    <br></br>
     {view === 'co2' ? (
-  <div>
+  <div  className='visualization-container'>
     <LineChart width={800} height={400} data={combinedData} style={{ backgroundColor: 'black' }}>
       <XAxis dataKey="year" />
       <YAxis />
@@ -133,7 +134,7 @@ export default function Visualization2() {
   </div>
     ) : (
   <div>
-    <LineChart width={600} height={300} data={iceCoreData} style={{ backgroundColor: 'black' }}>
+    <LineChart width={800} height={400} data={iceCoreData} style={{ backgroundColor: 'black' }}>
       <XAxis dataKey="year" />
       <YAxis />
       <CartesianGrid stroke="#eee" strokeDasharray="5 5" />

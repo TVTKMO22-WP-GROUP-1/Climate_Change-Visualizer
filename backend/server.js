@@ -10,7 +10,6 @@ const bodyParser = require('body-parser');
 const {v4: uuidv4} = require('uuid');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
-require('dotenv').config();
 
 app.use(bodyParser.json());
 
@@ -28,9 +27,15 @@ const pool = new Pool({
 pool.connect((err, client, done) => {
     if (err) throw err;
     console.log('Connected to PostgreSQL database!');
-    done(); // release the client back to the pool
-    });
   
+    client.query('SELECT username FROM users', (err, result) => {
+      if (err) throw err;
+      console.log(result.rows.map(row => row.username));
+      done(); // release the client back to the pool
+    });
+  });
+    
+   
 
 //middleware
 
@@ -45,7 +50,7 @@ app.use((req, res, next) => {
 const users = [];
 
 // Check credentials for database
-passport.use(new BasicStrategy(
+/*passport.use(new BasicStrategy(
     function(username, password, done) {
         pool.query('SELECT * FROM users WHERE username = $1', [username], (error, results) => {
             if (error) {
@@ -68,14 +73,39 @@ passport.use(new BasicStrategy(
             }
         });
     }
+));*/
+
+//Check Credentials //Tällä toimi locaalisti //toimi registeris
+passport.use(new BasicStrategy(
+    function(username, password, done) {
+
+        //console.log('username'+username);
+        //console.log('password'+password);
+
+        const user = users.find(u => u.username === username);
+
+        if (user != null) {
+            
+            if(bcrypt.compareSync(password, user.password)){
+                done(null, user);
+            } else {
+                done(null, false);
+            }
+        } else {
+            done(null, false);
+        }
+
+    }
 ));
+
+
 
 
 //JWT
 
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: process.env.JWT_SECRET_KEY
+    secretOrKey: "secretKey"
 }
 
 //JWT 
@@ -156,6 +186,26 @@ app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res
     const generatedJWT = jwt.sign(payload, secretKey, options)
     res.json({jwt : generatedJWT })
 })
+
+app.delete('/deleteuser', passport.authenticate('basic',{session: false}) ,(req, res) => {
+    console.log(req.body);
+     if('username' in req.body == false){
+         res.status(400);
+         res.json({status: "missing username"})
+         return;
+     }
+ 
+     if('password' in req.body == false){
+         res.status(400);
+         res.json({status: "missing password"})
+         return;
+     }
+
+     users.delete({username: req.body.username, password: req.body.password});
+
+     res.status(201).json({ status : "deleted"})
+
+ });
 
 app.get('/jwt-protected-resource', passport.authenticate('jwt',{session: false}), (req, res) => {
     //console.log(req.user);
