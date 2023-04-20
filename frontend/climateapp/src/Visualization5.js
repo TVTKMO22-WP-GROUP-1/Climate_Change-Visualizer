@@ -1,5 +1,5 @@
 import './Visualization.css';
-import React, { useState, useEffect, PureComponent } from 'react';
+import React, { useState, useEffect, PureComponent, useCallback } from 'react';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer, LabelList, Legend , Tooltip, Line } from 'recharts';
 
 export default function Visualization5() {
@@ -9,8 +9,9 @@ export default function Visualization5() {
   const [wasteData, setWasteData] = useState([]);
   const [industrialData, setIndustrialData] = useState([]);
   const [globalData, setglobalData] = useState([]);
-  const mainCategoriesArray = [energyData,industrialData,agricultureData,wasteData];
+  const globalDataArray = [energyData,industrialData,agricultureData,wasteData];
   const array = [];
+
 
   useEffect(() => {
     fetch('http://localhost:3001/v5globalagricultureforestrylanduse')
@@ -57,21 +58,82 @@ export default function Visualization5() {
 const CustomTooltip = ({ active, payload, label }) => {
   if (active) {
     return (
+      
       <div
       className='custom-tooltip'
       >
-        <label> {`${globalData[payload[0].name].sector} : ${payload[0].value}%`} </label>
+        <label style={{fontSize: '100%', color: 'white', backgroundColor: 'black'}}> {`${globalData[payload[0].name].sector}  ${payload[0].value}%: ${array}`}</label>
       </div>
     )
   }
   return null;
 };
+
+const renderActiveShape = props => {
+  const RADIAN = Math.PI / 180;
+  const {
+    cx,
+    cy,
+    innerRadius,
+    outerRadius,
+    startAngle,
+    endAngle,
+    midAngle
+  } = props;
+  const sin = Math.sin(-RADIAN * midAngle);
+  const cos = Math.cos(-RADIAN * midAngle);
+  const sx = cx + (outerRadius - 150) * cos;
+  const sy = cy + (outerRadius - 150) * sin;
+  return (
+    <Sector
+      cx={sx}
+      cy={sy}
+      innerRadius={innerRadius}
+      outerRadius={outerRadius}
+      startAngle={startAngle}
+      endAngle={endAngle}
+      fill="red"
+    />
+  );
+};
+
+const [activeIndex, setActiveIndex] = useState(null);
+  const onMouseOver = useCallback((data, index) => {
+    setActiveIndex(index);
+    
+  }, []);
+
+  for (let i = 0; i < globalDataArray[activeIndex]?.length; i++) {
+  switch (activeIndex) {
+    case 0:
+      array.push(energyData[i].sector  + ": " + energyData[i].globalemissionpercent + "% ");
+      break;
+    case 1:
+      array.push(industrialData[i].sector + ": " + industrialData[i].globalemissionpercent + "% ");
+      break;
+    case 2:
+      array.push(agricultureData[i].sector + ": " + agricultureData[i].globalemissionpercent + "% ");
+      break;
+    case 3:
+      array.push(wasteData[i].sector + ": " + wasteData[i].globalemissionpercent + "% ");
+      break;
+  }
+}
+  const onMouseLeave = useCallback((data, index) => {
+    setActiveIndex(null);
+    while (array.length > 0){
+      array.pop();
+    }
+  }, []);
+
+
   return (
     <div className='visualization-block'>
       <h1>Visualization 5</h1>
         <PieChart width={900} height={500}>
-        <Tooltip content={<CustomTooltip />} />
+        <Tooltip  content={<CustomTooltip />} />
           <Pie
+            activeIndex={activeIndex}
             data={globalData}
             cx="50%"
             cy="50%"
@@ -80,39 +142,18 @@ const CustomTooltip = ({ active, payload, label }) => {
             outerRadius={200}
             fill="#8884d8"
             dataKey="globalemissionpercent"
+            activeShape={renderActiveShape}
+            onMouseOver={onMouseOver}
+            onMouseLeave={onMouseLeave}
           >
               {globalData.map((entry,clicked) => (
               <Cell 
               style={{outline: 'none'}}
               key={`cell-${clicked}`} 
               fill={COLORS[clicked % COLORS.length]} 
-              onClick={(e) => {
-                for (let i = 0; i < mainCategoriesArray[clicked].length; i++) {
-                  switch (clicked) {
-                    case 0:
-                      array.push(energyData[i].sector + ": " + energyData[i].globalemissionpercent + "\n");
-                      break;
-                    case 1:
-                      array.push(industrialData[i].sector + ": " + industrialData[i].globalemissionpercent + "\n");
-                      break;
-                    case 2:
-                      array.push(agricultureData[i].sector + ": " + agricultureData[i].globalemissionpercent + "\n");
-                      break;
-                    case 3:
-                      array.push(wasteData[i].sector + ": " + wasteData[i].globalemissionpercent + "\n");
-                      break;
-                  }}
-
-                  
-              alert(array)
-              while (array.length > 0) {
-                array.pop();
-              }
-              }}
                 />
             ))}
           </Pie>
-
           <Legend
   payload={
     globalData.map(
@@ -128,3 +169,7 @@ const CustomTooltip = ({ active, payload, label }) => {
         </div>
     )
 };
+
+
+
+
