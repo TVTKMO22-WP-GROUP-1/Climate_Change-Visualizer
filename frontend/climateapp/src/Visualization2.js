@@ -109,6 +109,8 @@ export default function Visualization2() {
   return (
     <div className='visualization-block'>
     <h1>Visualization 2</h1>
+    <p>Atmospheric CO2 concentrations from Mauna Loa measurements starting 1958.</p>
+    <p>Antarctic Ice Core records of atmospheric CO2 ratios combined with Mauna Loa measurements.</p>
     <a href="https://gml.noaa.gov/ccgg/about/co2_measurements.html" class="big-link">Description co2</a>
     <br></br>
     <a href="https://cdiac.ess-dive.lbl.gov/trends/co2/lawdome.html" class="big-link">Description icecores</a>

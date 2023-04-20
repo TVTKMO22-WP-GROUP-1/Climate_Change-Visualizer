@@ -146,8 +146,8 @@ return (
   return (
     <div className="visualization-container">
       <div className="visualization-block">
-        <h1>YOU ARE NOW LOOKING AT VISUALIZATION 4</h1>
-        <p>This line graph displays the fossil CO2 emissions of three countries over a period of time. The x-axis shows the years, while the y-axis shows values in million tonnes of CO2 per year.</p>
+        <h1>Visualization 4</h1>
+        <p>Fossil CO2 emissions of three countries over a period of time. The x-axis showing the years, while the y-axis showing values in million tonnes of CO2 emissions per year.</p>
         <a href="https://www.icos-cp.eu/science-and-impact/global-carbon-budget/2021" class="big-link">Description</a>
 
         <div>
