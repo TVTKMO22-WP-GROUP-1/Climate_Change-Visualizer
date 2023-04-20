@@ -83,6 +83,7 @@ export default function Visualization3() {
       return (
         <div className='visualization-block'>
           <h1>Visualization 3</h1>
+          <a href="https://climate.fas.harvard.edu/files/climate/files/snyder_2016.pdf" class="big-link">Description</a>
           <div className='visualization-container'>
             <LineChart width={800} height={400} data={combinedCarbonData} style={{ backgroundColor: 'black'}}>
             <XAxis dataKey="year" />

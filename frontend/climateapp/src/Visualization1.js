@@ -153,6 +153,10 @@ export default function Visualization1() {
 return (
   <div className='visualization-block'>
     <h1>Visualization 1</h1>
+    <a href="https://www.metoffice.gov.uk/hadobs/hadcrut5/" class="big-link">Description Global</a>
+    <br></br>
+    <a href="https://bolin.su.se/data/moberg-2012-nh-1?n=moberg-2005" class="big-link">Description Reconstruction</a>
+    <br></br>
     <label>
         Show Reconstruction Line
         <input type="checkbox" checked={showReconstruction} onChange={toggleReconstruction} />

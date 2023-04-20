@@ -146,7 +146,10 @@ return (
   return (
     <div className="visualization-container">
       <div className="visualization-block">
-        <p>YOU ARE NOW LOOKING AT VISUALIZATION 4</p>
+        <h1>YOU ARE NOW LOOKING AT VISUALIZATION 4</h1>
+        <p>This line graph displays the fossil CO2 emissions of three countries over a period of time. The x-axis shows the years, while the y-axis shows values in million tonnes of CO2 per year.</p>
+        <a href="https://www.icos-cp.eu/science-and-impact/global-carbon-budget/2021" class="big-link">Description</a>
+
         <div>
         <button onClick={() => handleButtonClick1('china')}>China</button>
           <button onClick={() => handleButtonClick2('india')}>India</button>
