@@ -69,6 +69,7 @@ const CustomTooltip = ({ active, payload, label }) => {
   return (
     <div className='visualization-block'>
       <h1>Visualization 5</h1>
+      <a href="https://ourworldindata.org/emissions-by-sector#co2-emissions-by-sector" class="big-link">Description</a>
         <PieChart width={900} height={500}>
         <Tooltip content={<CustomTooltip />} />
           <Pie

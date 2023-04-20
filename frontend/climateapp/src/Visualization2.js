@@ -109,6 +109,9 @@ export default function Visualization2() {
   return (
     <div className='visualization-block'>
     <h1>Visualization 2</h1>
+    <a href="https://gml.noaa.gov/ccgg/about/co2_measurements.html" class="big-link">Description co2</a>
+    <br></br>
+    <a href="https://cdiac.ess-dive.lbl.gov/trends/co2/lawdome.html" class="big-link">Description icecores</a>
     <div>
       <label>
         <input type="radio" value="co2" checked={view === 'co2'} onChange={() => setView('co2')} />
