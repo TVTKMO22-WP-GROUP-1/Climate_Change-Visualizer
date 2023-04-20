@@ -130,3 +130,8 @@
   .protected{
     background-color: red;
   }
+
+  .big-link {
+    color: #fff;
+    font-size: 20px;
+  }
