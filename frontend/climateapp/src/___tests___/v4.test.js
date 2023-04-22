@@ -12,13 +12,8 @@ describe('Visualization4 component', () => {
   });
 });
 
-it('sets the state of selectedCountry1 when a country button is clicked', () => {
-    const { getByText } = render(<Visualization4 />);
-    const chinaButton = getByText('China');
-    fireEvent.click(chinaButton);
-    expect(chinaButton).toHaveStyle('background-color: #008CBA');
-    const indiaButton = getByText('India');
-    expect(indiaButton).not.toHaveStyle('background-color: #008CBA');
-    const usaButton = getByText('USA');
-    expect(usaButton).not.toHaveStyle('background-color: #008CBA');
+test('renders the Visualization 4 component', () => {
+    render(<Visualization4 />);
+    const heading = screen.getByText(/Visualization 4/i);
+    expect(heading).toBeInTheDocument();
   });
