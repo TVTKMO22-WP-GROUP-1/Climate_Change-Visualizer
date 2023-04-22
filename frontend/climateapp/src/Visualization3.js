@@ -84,7 +84,7 @@ export default function Visualization3() {
         <div className='visualization-block'>
           <h1>Visualization 3</h1>
           <p>Evolution of global temperature over the past two million years.</p>
-          <a href="https://climate.fas.harvard.edu/files/climate/files/snyder_2016.pdf" class="big-link">Description</a>
+          <a href="https://climate.fas.harvard.edu/files/climate/files/snyder_2016.pdf" className="big-link">Description</a>
           <div className='visualization-container'>
             <LineChart width={800} height={400} data={combinedCarbonData} style={{ backgroundColor: 'black'}}>
             <XAxis dataKey="year" />
