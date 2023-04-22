@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import GoToLogin from './Home';
-import GoToSignUp from './Home';
+import GoToLogin from '../Home';
+import GoToSignUp from '../Home';
 
 describe('GoToLogin', () => {
   test('renders a Login button that links to /login', () => {
