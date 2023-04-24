@@ -1,6 +1,5 @@
 import './Visualization.css';
 import React, { useState, useEffect } from 'react';
-import { groupBy } from 'lodash';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 export default function Visualization1() {
@@ -11,9 +10,7 @@ export default function Visualization1() {
   const [northMonthData, setNorthMonthData] = useState([]);
   const [southMonthData, setSouthMonthData] = useState([]);
   const [reconstructionData, setReconstructionData] = useState([]);
-
-
-    const [showReconstruction, setShowReconstruction] = useState(false);
+  const [showReconstruction, setShowReconstruction] = useState(false);
   
     const toggleReconstruction = () => {
       setShowReconstruction(!showReconstruction);
@@ -151,7 +148,7 @@ export default function Visualization1() {
 
 
 return (
-  <div className='visualization-block'>
+  <div role="v1" className='visualization-block'>
     <h1>Visualization 1</h1>
     <p>Global historical surface temperature anomalies from January 1850 onwards.</p>
     <p>Northern Hemisphere 2,000-year temperature reconstruction.</p>
@@ -184,7 +181,7 @@ return (
        {!showReconstruction && <Line type="monotone" dataKey="anomalydegc" stroke="green" dot={false} />}
         {!showReconstruction && <Line type="monotone" dataKey="anomalynorthyear" stroke="blue" dot={false} />}
         {!showReconstruction && <Line type="monotone" dataKey="anomalysouthyear" stroke="red" dot={false}/>}
-        {showReconstruction && <Line type="monotone" dataKey="reconstruction" stroke="white" dot={false} />}
+        {showReconstruction && <Line type="monotone" dataKey="reconstruction" stroke="gray" dot={false} />}
       </LineChart>
   </div>
     ) : (

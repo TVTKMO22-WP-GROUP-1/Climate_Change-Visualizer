@@ -10,7 +10,7 @@ const pool = new Pool({
 });
 
 
-app.listen(3001, () => {
+app.listen(port, () => {
   console.log('Server running on port 3001');
 });
 

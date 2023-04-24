@@ -11,8 +11,6 @@ export default function SignUpView() {
 
     const HandleSignupSubmit = async (event) => {
         event.preventDefault();
-        //console.log(event.target.username.value);
-        //console.log(event.target.password.value);
         setSignupProcessState("processing");
 
 
@@ -26,13 +24,11 @@ export default function SignUpView() {
             });
 
             //Error handling
-            console.log(result);
             setSignupProcessState("success");
             setTimeout(() => {
                 navigate('/login', { replace: true }); //Navigate to login page if successful
             }, 1500);
         } catch (error) {
-            console.log(error)
             setSignupProcessState("error"); //Alert user if error
             setTimeout(() => {
                 setSignupProcessState("idle");

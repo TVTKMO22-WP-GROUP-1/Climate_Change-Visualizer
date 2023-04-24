@@ -13,15 +13,18 @@ test('renders the Visualization 1 component', () => {
 
   describe('Visualization1', () => {
     test('renders annual view when "Annual" button is clicked', () => {
-      const { getByLabelText, getByText } = render(<Visualization1 />);
+      render(<Visualization1 />);
       fireEvent.click(screen.getByLabelText('Annual'));
       const annualViewHeading = screen.getByText('Annual');
       expect(annualViewHeading).toBeInTheDocument();
     });
     test('renders monthly view when "Monthly" button is clicked', () => {
-      const { getByLabelText, getByText } = render(<Visualization1 />);
+      render(<Visualization1 />);
       fireEvent.click(screen.getByLabelText('Monthly'));
       const monthlyViewHeading = screen.getByText('Monthly');
       expect(monthlyViewHeading).toBeInTheDocument();
     });
+    test('renders the Visualization 1 component', () => {
+      render(<Visualization1 />);
+      expect(screen.getByRole('v1')).toBeInTheDocument});
   });

@@ -28,7 +28,7 @@ function GoToSignUp() {
 function GoToProtected() {
   return (
     <Link to="/protected">
-      <button>Protected View</button>
+      <button>Delete Account</button>
     </Link>
   );
 }
@@ -114,12 +114,6 @@ export default function Home(props) {
         <Visualization5/>
         </div>
         </div>
-        <View3/>
-        <div className="create-url">
-        <button onClick={CreateUrlButton}>
-      Create URL
-    </button>
-    </div>
     </div>
   )
 }
