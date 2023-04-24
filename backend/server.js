@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 5432;
+const port = 5000;
 const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
 const jwt = require('jsonwebtoken');
@@ -78,12 +78,7 @@ const users = [];
 //Check Credentials //Tällä toimi locaalisti //toimi registeris
 passport.use(new BasicStrategy(
     function(username, password, done) {
-
-        //console.log('username'+username);
-        //console.log('password'+password);
-
         const user = users.find(u => u.username === username);
-
         if (user != null) {
             
             if(bcrypt.compareSync(password, user.password)){
@@ -97,9 +92,6 @@ passport.use(new BasicStrategy(
 
     }
 ));
-
-
-
 
 //JWT
 
@@ -116,15 +108,8 @@ passport.use(new JwtStrategy(jwtOptions, function(jwt_payload, done){
 
     done(null, jwt_payload);
 }))
-
-
-
 // REQUEST BODY
-
 app.post('/register', (req, res) => {
-    // console.log(req.body);
- 
-    
      if('username' in req.body == false){
          res.status(400);
          res.json({status: "missing username"})
@@ -149,12 +134,8 @@ app.post('/register', (req, res) => {
   (err, result)=> {
     console.log(err);
  })
- 
      res.status(201).json({ status : "created"})
-     
- 
  });
- 
  app.get('/my-protected-resource', passport.authenticate('basic',{session: false}),(req, res) => {
      console.log("Protected resource accessed");
  
@@ -168,9 +149,7 @@ app.post('/jwtLogin', passport.authenticate('basic',{session: false}), (req, res
         user : {
             id: req.user.id,
             username: req.user.username
-            
         }
-        
     };
 
     let secretKey = process.env.JWT_SECRET_KEY;
@@ -202,9 +181,7 @@ app.delete('/deleteuser', passport.authenticate('basic',{session: false}) ,(req,
      }
 
      users.delete({username: req.body.username, password: req.body.password});
-
      res.status(201).json({ status : "deleted"})
-
  });
 
 app.get('/jwt-protected-resource', passport.authenticate('jwt',{session: false}), (req, res) => {
@@ -232,19 +209,22 @@ app.delete('/users/:username', (req, res) => {
             console.error(error);
         } else {
             console.log(`Deleted user with username ${username}`);
-            res.json({ message: `User ${username} deleted successfully` });            
+            res.status(201).json({ status : "deleted"})
         }
     })
+
   });
 
 let serverInstance = null;
 module.exports = {
     start: function() {
         serverInstance = app.listen(port, () => {
-            console.log(`Example app listening at http://localhost:${port}`)
+            console.log(`Server running at http://localhost:${port}`)
         })
     },
     close: function() {
         serverInstance.close();
     }
+
+    
 }

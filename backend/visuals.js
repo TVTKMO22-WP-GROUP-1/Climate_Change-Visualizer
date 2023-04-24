@@ -9,11 +9,6 @@ const pool = new Pool({
   connectionString: 'postgres://group1db_user:LEjCfIy7NtvcBrP2qB73lon1Z4IInvBM@dpg-cg80u01mbg53mc3cml2g-a.frankfurt-postgres.render.com/group1db?ssl=true',
 });
 
-
-app.listen(port, () => {
-  console.log('Server running on port 3001');
-});
-
 app.get('/globalv1annual', (req, res) => {
     pool.query('SELECT * FROM globalv1annual', (error, results) => {
         if (error) {
@@ -244,10 +239,15 @@ app.get('/globalv1annual', (req, res) => {
               
           });
           });
-    
-        
-
-
-
-
-    
+                    
+          let serverInstance = null;
+          module.exports = {
+              start: function() {
+                  serverInstance = app.listen(port, () => {
+                      console.log(`Visuals running at http://localhost:${port}`)
+                  })
+              },
+              close: function() {
+                  serverInstance.close();
+              }
+          }
