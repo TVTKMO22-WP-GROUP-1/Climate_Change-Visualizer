@@ -59,30 +59,8 @@ const usaCo2Data = _(usaCo2)
     usaco2: _.meanBy(values, 'millionstonsco2')
   }))
   .value();
-/*
-const countryData = _.mergeWith(chinaCo2Data, indiaCo2Data, usaCo2Data, (objValue, srcValue) => {
-  if (_.isArray(objValue)) {
-    return objValue.concat(srcValue);
-  }
-}).map(({ year, chinaCo2, indiaCo2, usaCo2 }) => ({ year, chinaCo2, indiaCo2, usaCo2 }));
-*/
 
-/*
-const countryData = countryData.map(year => {
-  const china1 = chinaCo2Data.find(china1 => china1.year === year.millionstonsco2);
-  const india1 = indiaCo2Data.find(india1 => india1.year === year.millionstonsco2);
-  const usa1 = usaCo2Data.find(usa1 => usa1.year === year.millionstonsco2);
-  return {
-    vuosi: year.month,
-    millionstonsco2: year.millionstonsco2,
-    //anomalynorthyear: northYear ? northYear.anomalydegc : null,
-   // anomalysouthyear: southYear ? southYear.anomalydegc : null,
-   // reconstruction: recoYear ? recoYear.reconstruction : null
-  };
-});
-const china1 = chinaCo2Data.find(china1 => china1.year === year.millionstonsco2);
-*/
-console.log(indiaCo2Data);
+//console.log(indiaCo2Data);
 //console.log(usaCo2);
 const handleButtonClick1 = (country) => {
   if (buttonClicks === 1) {
@@ -125,30 +103,14 @@ const handleButtonClick3 = (country) => {
     setDataToDisplay(country === 'usa' ? usaCo2Data : []);
   }
 };
-/*
-return (
-  <div className="visualization-container">
-    <div className="visualization-block">
-      <p>YOU ARE NOW LOOKING AT VISUALIZATION 4</p>
-      <LineChart width={800} height={400} data={indiaCo2Data}>
-        <XAxis dataKey="year" />
-        <YAxis />
-        <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="millionstonsco2" stroke="#8884d8" />
-      </LineChart>
-    </div>
-  </div>
-);
-}*/
+
  
   return (
     <div className="visualization-container">
       <div className="visualization-block">
         <h1>Visualization 4</h1>
         <p>Fossil CO2 emissions of three countries over a period of time. The x-axis showing the years, while the y-axis showing values in million tonnes of CO2 emissions per year.</p>
-        <a href="https://www.icos-cp.eu/science-and-impact/global-carbon-budget/2021" class="big-link">Description</a>
+        <a href="https://www.icos-cp.eu/science-and-impact/global-carbon-budget/2021" className="big-link">Description</a>
 
         <div>
         <button onClick={() => handleButtonClick1('china')}>China</button>
@@ -177,12 +139,3 @@ return (
   
   
   }
-/*       {selectedCountry1 === 'china' && (
-    <Line type="monotone" dataKey="chinaCo2Data" stroke="#8884d8" />
-  )}
-  {selectedCountry2 === 'india' && (
-    <Line type="monotone" dataKey="indiaCo2Data" stroke="#82ca9d" />
-  )}
-  {selectedCountry3 === 'usa' && (
-    <Line type="monotone" dataKey="usaCo2Data" stroke="#ffc658" />
-  )}*/

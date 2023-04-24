@@ -155,9 +155,9 @@ return (
     <h1>Visualization 1</h1>
     <p>Global historical surface temperature anomalies from January 1850 onwards.</p>
     <p>Northern Hemisphere 2,000-year temperature reconstruction.</p>
-    <a href="https://www.metoffice.gov.uk/hadobs/hadcrut5/" class="big-link">Description Global</a>
+    <a href="https://www.metoffice.gov.uk/hadobs/hadcrut5/" className="big-link">Description Global</a>
     <br></br>
-    <a href="https://bolin.su.se/data/moberg-2012-nh-1?n=moberg-2005" class="big-link">Description Reconstruction</a>
+    <a href="https://bolin.su.se/data/moberg-2012-nh-1?n=moberg-2005" className="big-link">Description Reconstruction</a>
     <br></br>
     <label>
         Show Reconstruction Line
