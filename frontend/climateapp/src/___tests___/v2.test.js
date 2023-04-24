@@ -12,7 +12,7 @@ import Visualization2 from '../Visualization2';
 
         describe('Visualization2', () => {
         it('should render the co2 view by default', () => {
-        const { getByLabelText } = render(<Visualization2 />);
+        render(<Visualization2 />);
         const co2Button = screen.getByLabelText('co2');
         const icecoreButton = screen.getByLabelText('icecore');
         expect(co2Button).toBeChecked();
@@ -21,7 +21,7 @@ import Visualization2 from '../Visualization2';
 
         describe('Visualization2', () => {
             test('should switch to the icecore view when icecore button is clicked', () => {
-            const {getByLabelText } = render(<Visualization2 />);
+            render(<Visualization2 />);
             const co2Button = screen.getByLabelText('co2');
             const icecoreButton = screen.getByLabelText('icecore');
             fireEvent.click(icecoreButton);
@@ -29,12 +29,16 @@ import Visualization2 from '../Visualization2';
        });
         
             test('should switch to the co2 view when co2 button is clicked', () => {
-            const {getByLabelText} = render(<Visualization2 />);
+            render(<Visualization2 />);
             const co2Button = screen.getByLabelText('co2');
             const icecoreButton = screen.getByLabelText('icecore');
             fireEvent.click(icecoreButton);
             fireEvent.click(co2Button);
             expect(co2Button).toBeChecked();
         });
+
+            test('renders the Visualization 2 component', () => {
+            render(<Visualization2 />);
+            expect(screen.getByRole('v2')).toBeInTheDocument});
      });
  });

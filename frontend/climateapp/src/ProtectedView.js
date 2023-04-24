@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import Constants from './Constants.json'
+import LoginView from './LoginView'
 
 //This would be the protected view that only logged in users can see
 export default function ProtectedView(props) {
@@ -12,7 +13,7 @@ export default function ProtectedView(props) {
   }
   return (
     <div className="protected">
-        <h2>Protected view </h2>
+        <h2>Delete Account</h2>
 
         <form>
             <div>
@@ -20,10 +21,6 @@ export default function ProtectedView(props) {
                 <button onClick={DeleteAccount}>Delete User</button>
             </div>
         </form>
-
-        <div>
-          Decoded JWT data from payload<br/>
-        </div>
     </div>
   )
 

@@ -1,19 +1,14 @@
 import './Visualization.css';
 import React, { useState, useEffect } from 'react';
-import { groupBy } from 'lodash';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
-
 export default function Visualization2() {
-
   const [yearCo2, setYearCo2] = useState([]);
   const [monthCo2, setMonthCo2] = useState([]);
   const [icecore1, setIcecore1] = useState([]);
   const [icecore2, setIcecore2] = useState([]);
   const [icecore3, setIcecore3] = useState([]);
-
-    const [view, setView] = useState('co2');
-      
+  const [view, setView] = useState('co2');
   const _ = require('lodash'); 
 
   useEffect(() => {
@@ -45,7 +40,6 @@ export default function Visualization2() {
       .then(response => response.json())
       .then(icecore3 => setIcecore3(icecore3));
   }, []);
-
 
   const yearCo2Data = _(yearCo2)
     .groupBy('vuosi')
@@ -81,7 +75,6 @@ export default function Visualization2() {
     }))
     .value();
 
-
     const icecore2Data = _(icecore2)
     .groupBy('meanairage')
     .map((values, year) => ({
@@ -104,10 +97,8 @@ export default function Visualization2() {
       }
     });
 
-
-
   return (
-    <div className='visualization-block'>
+    <div role="v2" className='visualization-block'>
     <h1>Visualization 2</h1>
     <p>Atmospheric CO2 concentrations from Mauna Loa measurements starting 1958.</p>
     <p>Antarctic Ice Core records of atmospheric CO2 ratios combined with Mauna Loa measurements.</p>

@@ -42,6 +42,8 @@ export default function LoginView(props) {
     }
   };
 
+
+
 let loginUiControls = null;
 switch (loginProcessState) {
     case 'idle':
