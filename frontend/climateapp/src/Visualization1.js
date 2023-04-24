@@ -25,37 +25,37 @@ export default function Visualization1() {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:3001/globalv1monthly')
+    fetch(Constants.API_ADDRESS +'/globalv1monthly')
       .then(response => response.json())
       .then(dataMonth => setDataMonth(dataMonth));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:3001/northv1annual')
+    fetch(Constants.API_ADDRESS +'/northv1annual')
       .then(response => response.json())
       .then(northYearData => setNorthYearData(northYearData));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:3001/southv1annual')
+    fetch(Constants.API_ADDRESS +'/southv1annual')
       .then(response => response.json())
       .then(southYearData => setSouthYearData(southYearData));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:3001/northv1monthly')
+    fetch(Constants.API_ADDRESS +'/northv1monthly')
       .then(response => response.json())
       .then(northMonthData => setNorthMonthData(northMonthData));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:3001/southv1monthly')
+    fetch(Constants.API_ADDRESS +'/southv1monthly')
       .then(response => response.json())
       .then(southMonthData => setSouthMonthData(southMonthData));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:3001/northv1reconstruction')
+    fetch(Constants.API_ADDRESS +'/northv1reconstruction')
       .then(response => response.json())
       .then(reconstructionData => setReconstructionData(reconstructionData));
   }, []);
