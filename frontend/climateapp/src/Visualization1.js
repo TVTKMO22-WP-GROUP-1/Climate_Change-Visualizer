@@ -1,6 +1,7 @@
 import './Visualization.css';
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import Constants from './Constants.json'
 
 export default function Visualization1() {
   const [yearData, setYearData] = useState([]);
@@ -18,7 +19,7 @@ export default function Visualization1() {
     
     const _ = require('lodash'); 
   useEffect(() => {
-    fetch('http://localhost:3001/globalv1annual')
+    fetch(Constants.API_ADDRESS + '/globalv1annual')
       .then(response => response.json())
       .then(yearData => setYearData(yearData));
   }, []);
