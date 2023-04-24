@@ -44,38 +44,8 @@ app.use((req, res, next) => {
 
     next();
 })
-
-
 //const users must be there, otherwise big error
 const users = [];
-
-// Check credentials for database
-/*passport.use(new BasicStrategy(
-    function(username, password, done) {
-        pool.query('SELECT * FROM users WHERE username = $1', [username], (error, results) => {
-            if (error) {
-                throw error;
-            }
-
-            console.log(results.rows);
-
-            if (results.rows.length > 0) {
-                const user = results.rows[0];
-
-                if (bcrypt.compareSync(password, user.password)) {
-                    console.log(results.rows);
-                    done(null, user);
-                } else {
-                    done(null, false);
-                }
-            } else {
-                done(null, false);
-            }
-        });
-    }
-));*/
-
-//Check Credentials //Tällä toimi locaalisti //toimi registeris
 passport.use(new BasicStrategy(
     function(username, password, done) {
         const user = users.find(u => u.username === username);
@@ -92,9 +62,7 @@ passport.use(new BasicStrategy(
 
     }
 ));
-
 //JWT
-
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: "secretKey"
@@ -102,10 +70,6 @@ const jwtOptions = {
 
 //JWT 
 passport.use(new JwtStrategy(jwtOptions, function(jwt_payload, done){
-    /*console.log("JWT IS VALID");
-    console.log("JWT PAYLOAD: ");
-    console.log(jwt_payload);*/
-
     done(null, jwt_payload);
 }))
 // REQUEST BODY
