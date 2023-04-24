@@ -1,3 +1,3 @@
 {
-    "API_ADDRESS": "postgres://group1db_user:LEjCfIy7NtvcBrP2qB73lon1Z4IInvBM@dpg-cg80u01mbg53mc3cml2g-a.frankfurt-postgres.render.com/group1db?ssl=true"
+    "API_ADDRESS": "http://localhost:5000"
 }
