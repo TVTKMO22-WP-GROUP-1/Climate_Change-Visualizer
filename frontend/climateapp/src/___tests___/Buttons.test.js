@@ -1,8 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent} from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import GoToLogin from '../Home';
 import GoToSignUp from '../Home';
+import GoToProtected from '../Home';
+import Home from '../Home';
+
 
 describe('GoToLogin', () => {
   test('renders a Login button that links to /login', () => {
@@ -12,9 +15,9 @@ describe('GoToLogin', () => {
       </BrowserRouter>
     );
 
-    const loginButton = screen.getByText('Login');
+    const loginButton = screen.getByRole('link', { name: 'Login' });
     expect(loginButton).toBeInTheDocument();
-    expect(loginButton.closest('a')).toHaveAttribute('href', '/login');
+    expect(loginButton).toHaveAttribute('href', '/login');
   });
 });
 
@@ -26,8 +29,8 @@ describe('GoToSignUp', () => {
         </BrowserRouter>
       );
   
-        const signUpButton = screen.getByText('Sign Up');
-        expect(signUpButton).toBeInTheDocument();
-        expect(signUpButton.closest('a')).toHaveAttribute('href', '/signup');
+      const signUpButton = screen.getByRole('link', { name: 'Sign Up' });
+      expect(signUpButton).toBeInTheDocument();
+      expect(signUpButton).toHaveAttribute('href', '/signup');
     });
   });
