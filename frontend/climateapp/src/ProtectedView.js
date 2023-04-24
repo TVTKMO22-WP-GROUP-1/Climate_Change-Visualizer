@@ -1,27 +1,73 @@
-import React from 'react'
+import React, {useState} from 'react'
 import axios from 'axios'
 import Constants from './Constants.json'
-import LoginView from './LoginView'
+import { useNavigate } from 'react-router-dom'
 
-//This would be the protected view that only logged in users can see
-export default function ProtectedView(props) {
-  
-  function DeleteAccount() {
-    const element = document.getElementById('userinput')
-    const value = element.value
-    axios.delete(Constants.API_ADDRESS + '/users/'+value)
-  }
-  return (
-    <div className="protected">
-        <h2>Delete Account</h2>
+export default function DeleteView() {
+    const [deleteProcessState, setdeleteProcessState] = useState("idle");
+    const navigate = useNavigate();
 
-        <form>
+    const HandledeleteSubmit = async (event) => {
+        event.preventDefault();
+        setdeleteProcessState("processing");
+        setdeleteProcessState("success");
+        try {
+            const result = await axios.delete(Constants.API_ADDRESS + '/users/'+event.target.username.value,
+            {
+                username: event.target.username.value,
+                password: event.target.password.value
+            });
+
+            //Error handling
+            console.log(result);
+            setdeleteProcessState("success");
+            setTimeout(() => {
+                navigate('/', { replace: true }); //Navigate to index page if successful
+            }, 1500);
+        } catch (error) {
+            console.log(error)
+            setdeleteProcessState("error"); //Alert user if error
+            setTimeout(() => {
+            setdeleteProcessState("idle");
+            }, 1500);
+        }
+};
+    //UI controls for delete process
+    let deleteUiControls = null;
+    switch (deleteProcessState) {
+        case 'idle':
+            deleteUiControls = <button type="submit">Delete</button>;
+            break;
+        case 'processing':
+            deleteUiControls = <span>Processing...</span>
+            break;
+        case 'success':
+            deleteUiControls = <span style = {{color: 'green'}}>User delete successful!</span>;
+            break;
+        case 'error':
+            deleteUiControls = <span style = {{color: 'red'}}>User delete failed!</span>;
+            break;
+        default:
+            deleteUiControls = <button type="submit">Delete</button>;
+    }
+    return(
+    <div>
+        <h2>
+            Delete
+        </h2>
+        <form onSubmit={ HandledeleteSubmit}>
             <div>
-            Username<input type="text" id ="userinput" name="username"/>
-                <button onClick={DeleteAccount}>Delete User</button>
+                Username <br/>
+                <input type="text" name="username"/>
+            </div>
+            <div>
+                Password <br/>
+                <input type="password" name="password"/>
+            </div>
+            <div>
+                {deleteUiControls}
             </div>
         </form>
     </div>
-  )
-
+    )
 }
