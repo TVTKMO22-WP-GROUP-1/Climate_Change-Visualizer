@@ -6,28 +6,35 @@ import { useNavigate } from 'react-router-dom'
 
 export default function SignUpView() {
 
+    
     const [signupProcessState, setSignupProcessState] = useState("idle");
     const navigate = useNavigate();
 
     const HandleSignupSubmit = async (event) => {
         event.preventDefault();
         setSignupProcessState("processing");
-
-
         // API call
-
         try {
             const result = await axios.post(Constants.API_ADDRESS + '/register',
             {
                 username: event.target.username.value,
                 password: event.target.password.value
             });
-
-            //Error handling
-            setSignupProcessState("success");
-            setTimeout(() => {
-                navigate('/login', { replace: true }); //Navigate to login page if successful
-            }, 1500);
+            let value =document.getElementById('uname').value 
+ 
+     
+            if (value.length < 4) {
+                alert("username must be at least 4 characters!")
+                setSignupProcessState("error"); 
+                setTimeout(() => {
+                    setSignupProcessState("idle");
+                }, 1500);
+            } else {
+                setSignupProcessState("success");
+                setTimeout(() => {
+                    navigate('/login', { replace: true }); //Navigate to login page if successful
+                }, 1500);
+            }
         } catch (error) {
             setSignupProcessState("error"); //Alert user if error
             setTimeout(() => {
@@ -64,17 +71,17 @@ export default function SignUpView() {
             Sign up
         </h2>
         <form onSubmit={ HandleSignupSubmit}>
-        <div>
-            Username <br/>
-            <input type="text" name="username"/>
-        </div>
-        <div>
-            Password <br/>
-            <input type="password" name="password"/>
-        </div>
-        <div>
-            {signupUiControls}
-        </div>
+            <div>
+                Username<br/>
+                <input id="uname" type="text" name="username"/>
+            </div>
+            <div>
+                Password<br/>
+                <input type="password" name="password"/>
+            </div>
+            <div>
+                {signupUiControls}
+            </div>
         </form>
     </div>
     )
