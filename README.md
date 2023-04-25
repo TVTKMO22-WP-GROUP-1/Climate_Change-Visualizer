@@ -1,7 +1,9 @@
 # Climate Change Visualizer – Ilmastonmuutoksen havainnollistamisen projekti
 
 Tekijät: Sampo Sarlin, Sampo Ikonen, Samuli Järvensivu ja Tuomas Jokikokko
+
 Linkki palvelimelle: https://climate-app-static.onrender.com/
+
 Linkki GitHub-repositorioon: https://github.com/TVTKMO22-WP-GROUP-1/Climate_Change-Visualizer
 
 ## Esittely
