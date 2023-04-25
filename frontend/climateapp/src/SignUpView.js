@@ -64,17 +64,17 @@ export default function SignUpView() {
             Sign up
         </h2>
         <form onSubmit={ HandleSignupSubmit}>
-            <div>
-                Username <br/>
-                <input type="text" name="username"/>
-            </div>
-            <div>
-                Password <br/>
-                <input type="password" name="password"/>
-            </div>
-            <div>
-                {signupUiControls}
-            </div>
+        <div>
+            Username <br/>
+            <input type="text" name="username"/>
+        </div>
+        <div>
+            Password <br/>
+            <input type="password" name="password"/>
+        </div>
+        <div>
+            {signupUiControls}
+        </div>
         </form>
     </div>
     )

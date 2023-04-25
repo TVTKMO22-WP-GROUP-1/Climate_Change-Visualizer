@@ -13,7 +13,7 @@ export default function Visualization5() {
   const globalDataArray = [energyData, industrialData, agricultureData, wasteData];
   const array = [];
 
-
+  //Content fetching from database
   useEffect(() => {
     fetch(Constants.API_ADDRESS +'/v5globalagricultureforestrylanduse')
       .then(response => response.json())
@@ -136,30 +136,30 @@ export default function Visualization5() {
       <p> Move your cursor on top of the sector to see more details.</p>
       <a href="https://ourworldindata.org/emissions-by-sector#co2-emissions-by-sector" className="big-link">Description</a>
       <div role="pie"  className='visualization-container'>
-      <PieChart width={900} height={500}>
-        <Tooltip content={<CustomTooltip />} />
-        <Pie
-          activeIndex={activeIndex}
-          data={globalData}
-          cx="50%"
-          cy="50%"
-          labelLine={false}
-          label={RenderCustomizedLabel}
-          outerRadius={200}
-          fill="#8884d8"
-          dataKey="globalemissionpercent"
-          activeShape={renderActiveShape}
-          onMouseOver={onMouseOver}
-          onMouseLeave={onMouseLeave}
-        >
-          {globalData.map((entry, clicked) => (
-            <Cell
-              style={{ outline: 'none' }}
-              key={`cell-${clicked}`}
-              fill={COLORS[clicked % COLORS.length]}
-            />
-          ))}
-        </Pie>
+        <PieChart width={900} height={500}>
+          <Tooltip content={<CustomTooltip />} />
+          <Pie
+            activeIndex={activeIndex}
+            data={globalData}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+            label={RenderCustomizedLabel}
+            outerRadius={200}
+            fill="#8884d8"
+            dataKey="globalemissionpercent"
+            activeShape={renderActiveShape}
+            onMouseOver={onMouseOver}
+            onMouseLeave={onMouseLeave}
+          >
+        {globalData.map((entry, clicked) => (
+          <Cell
+            style={{ outline: 'none' }}
+            key={`cell-${clicked}`}
+            fill={COLORS[clicked % COLORS.length]}
+          />
+        ))}
+          </Pie>
         <Legend
           payload={
             globalData.map(
@@ -171,7 +171,7 @@ export default function Visualization5() {
             )
           }
         />
-      </PieChart>
+        </PieChart>
       </div>
     </div>
   )
