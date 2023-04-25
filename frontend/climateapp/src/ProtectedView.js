@@ -10,19 +10,18 @@ export default function DeleteView() {
     const HandledeleteSubmit = async (event) => {
         event.preventDefault();
         setdeleteProcessState("processing");
-        setdeleteProcessState("success");
         try {
             const result = await axios.delete(Constants.API_ADDRESS + '/users/'+event.target.username.value,
             {
                 username: event.target.username.value,
-                password: event.target.password.value
+                password: event.target.password.value,
+                
             });
-
-            //Error handling
-            console.log(result);
             setdeleteProcessState("success");
+            
             setTimeout(() => {
                 navigate('/', { replace: true }); //Navigate to index page if successful
+                window.location.reload(false)
             }, 1500);
         } catch (error) {
             console.log(error)
@@ -42,7 +41,10 @@ export default function DeleteView() {
             deleteUiControls = <span>Processing...</span>
             break;
         case 'success':
+
             deleteUiControls = <span style = {{color: 'green'}}>User delete successful!</span>;
+
+
             break;
         case 'error':
             deleteUiControls = <span style = {{color: 'red'}}>User delete failed!</span>;
