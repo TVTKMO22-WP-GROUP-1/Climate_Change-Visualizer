@@ -1,6 +1,7 @@
 import './Visualization.css';
 import React, { useState, useEffect, useCallback } from 'react';
 import { PieChart, Pie, Sector, Cell, Legend, Tooltip } from 'recharts';
+import Constants from './Constants.json'
 
 export default function Visualization5() {
   const _ = require('lodash');
@@ -14,31 +15,31 @@ export default function Visualization5() {
 
 
   useEffect(() => {
-    fetch('http://localhost:3001/v5globalagricultureforestrylanduse')
+    fetch(Constants.API_ADDRESS +'/v5globalagricultureforestrylanduse')
       .then(response => response.json())
       .then(agricultureData => setAgricultureData(agricultureData));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:3001/v5globalenergy')
+    fetch(Constants.API_ADDRESS +'/v5globalenergy')
       .then(response => response.json())
       .then(energyData => setEnergyData(energyData));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:3001/v5globalwaste')
+    fetch(Constants.API_ADDRESS +'/v5globalwaste')
       .then(response => response.json())
       .then(wasteData => setWasteData(wasteData));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:3001/v5globalindustrial')
+    fetch(Constants.API_ADDRESS +'/v5globalindustrial')
       .then(response => response.json())
       .then(industrialData => setIndustrialData(industrialData));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:3001/v5globalsectors')
+    fetch(Constants.API_ADDRESS +'/v5globalsectors')
       .then(response => response.json())
       .then(globalData => setglobalData(globalData));
   }, []);

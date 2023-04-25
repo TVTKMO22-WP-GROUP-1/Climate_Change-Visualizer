@@ -1,6 +1,7 @@
 import './Visualization.css';
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import Constants from './Constants.json'
 
 export default function Visualization3() {
   const [carbonData, setCarbonData] = useState([]);
@@ -10,19 +11,19 @@ export default function Visualization3() {
   const _ = require('lodash');
 
   useEffect(() => {
-    fetch('http://localhost:3001/v3carbondioxide')
+    fetch(Constants.API_ADDRESS +'/v3carbondioxide')
       .then(response => response.json())
       .then(carbonData => setCarbonData(carbonData));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:3001/v3gastreconstruction')
+    fetch(Constants.API_ADDRESS +'/v3gastreconstruction')
       .then(response => response.json())
       .then(gastData => setGastData(gastData));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:3001/v3events')
+    fetch(Constants.API_ADDRESS +'/v3events')
       .then(response => response.json())
       .then(eventData => setEventData(eventData));
   }, []);
