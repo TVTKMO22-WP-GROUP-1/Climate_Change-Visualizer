@@ -171,8 +171,8 @@ return (
         Monthly
       </label>
     </div>
+    <div className='visualization-container'>
     {view === 'annual' ? (
-  <div className='visualization-container'>
       <LineChart width={800} height={400} data={combinedYearlyData} style={{ backgroundColor: 'black' }}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="vuosi" />
@@ -184,7 +184,6 @@ return (
         {!showReconstruction && <Line type="monotone" dataKey="anomalysouthyear" stroke="red" dot={false}/>}
         {showReconstruction && <Line type="monotone" dataKey="reconstruction" stroke="gray" dot={false} />}
       </LineChart>
-  </div>
     ) : (
         <LineChart width={800} height={400} data={combinedMonthlyData} style={{ backgroundColor: 'black'}}>
          <CartesianGrid strokeDasharray="3 3" />
@@ -196,7 +195,8 @@ return (
           <Line type="monotone" dataKey="anomalynorthmonth" stroke="blue" dot={false}  />
           <Line type="monotone" dataKey="anomalysouthmonth" stroke="red" dot={false} />
        </LineChart>
-    )}
+  )}
   </div>
+</div>
 );
     }
