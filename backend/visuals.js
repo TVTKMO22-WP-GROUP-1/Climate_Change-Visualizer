@@ -262,7 +262,7 @@ app.get('/globalv1annual', (req, res) => {
             
               client.query('SELECT username FROM users', (err, result) => {
                 if (err) throw err;
-                console.log(result.rows.map(row => row.username));
+                //console.log(result.rows.map(row => row.username));
                 done(); // release the client back to the pool
               });
             });
