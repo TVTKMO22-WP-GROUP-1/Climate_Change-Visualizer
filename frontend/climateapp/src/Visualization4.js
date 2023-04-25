@@ -1,6 +1,7 @@
 import './Visualization.css';
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import Constants from './Constants.json'
 
 export default function Visualization4() {
 
@@ -16,19 +17,19 @@ export default function Visualization4() {
   const _ = require('lodash');
 
   useEffect(() => {
-    fetch('http://localhost:3001/v4chinaco2')
+    fetch(Constants.API_ADDRESS +'/v4chinaco2')
       .then(response => response.json())
       .then(chinaCo2 => setChinaCo2(chinaCo2));
   });
 
   useEffect(() => {
-    fetch('http://localhost:3001/v4indiaco2')
+    fetch(Constants.API_ADDRESS +'/v4indiaco2')
       .then(response => response.json())
       .then(indiaCo2 => setIndiaCo2(indiaCo2));
   });
 
   useEffect(() => {
-    fetch('http://localhost:3001/v4usaco2')
+    fetch(Constants.API_ADDRESS +'/v4usaco2')
       .then(response => response.json())
       .then(usaCo2 => setUsaCo2(usaCo2));
   });

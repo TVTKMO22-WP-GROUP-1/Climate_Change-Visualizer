@@ -3,6 +3,7 @@ const { Pool } = require('pg');
 const port = 3001;
 const cors = require('cors');
 const app = express();
+
 app.use(cors());
 // To connect to database
 const pool = new Pool({
@@ -244,7 +245,7 @@ app.get('/globalv1annual', (req, res) => {
           module.exports = {
               start: function() {
                   serverInstance = app.listen(port, () => {
-                      console.log(`Visuals running at http://localhost:${port}`)
+                      console.log(`Backend running at http://localhost:${port}`)
                   })
               },
               close: function() {

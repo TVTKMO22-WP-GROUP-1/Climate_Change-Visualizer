@@ -1,6 +1,7 @@
 import './Visualization.css';
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import Constants from './Constants.json'
 
 export default function Visualization2() {
   const [yearCo2, setYearCo2] = useState([]);
@@ -12,31 +13,31 @@ export default function Visualization2() {
   const _ = require('lodash'); 
 
   useEffect(() => {
-    fetch('http://localhost:3001/maunaloaco2v2annual')
+    fetch(Constants.API_ADDRESS +'/maunaloaco2v2annual')
       .then(response => response.json())
       .then(yearCo2 => setYearCo2(yearCo2));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:3001/maunaloaco2v2monthly')
+    fetch(Constants.API_ADDRESS +'/maunaloaco2v2monthly')
       .then(response => response.json())
       .then(monthCo2 => setMonthCo2(monthCo2));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:3001/v2icecore1')
+    fetch(Constants.API_ADDRESS +'/v2icecore1')
       .then(response => response.json())
       .then(icecore1 => setIcecore1(icecore1));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:3001/v2icecore2')
+    fetch(Constants.API_ADDRESS +'/v2icecore2')
       .then(response => response.json())
       .then(icecore2 => setIcecore2(icecore2));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:3001/v2icecore3')
+    fetch(Constants.API_ADDRESS +'/v2icecore3')
       .then(response => response.json())
       .then(icecore3 => setIcecore3(icecore3));
   }, []);
