@@ -362,27 +362,7 @@ app.get('/globalv1annual', (req, res) => {
               res.json({jwt : generatedJWT })
           })
           
-          app.delete('/deleteuser', passport.authenticate('basic',{session: false}) ,(req, res) => {
-              console.log(req.body);
-               if('username' in req.body == false){
-                   res.status(400);
-                   res.json({status: "missing username"})
-                   return;
-               }
-           
-               if('password' in req.body == false){
-                   res.status(400);
-                   res.json({status: "missing password"})
-                   return;
-               }
-          
-               users.delete({username: req.body.username, password: req.body.password});
-               res.status(201).json({ status : "deleted"})
-           });
-          
           app.get('/jwt-protected-resource', passport.authenticate('jwt',{session: false}), (req, res) => {
-              //console.log(req.user);
-          
               console.log('User Id from JWT is ' + req.user.user.id);
               res.send("OK, for user " + req.user.user.username); 
           })
@@ -399,7 +379,6 @@ app.get('/globalv1annual', (req, res) => {
           })
           app.delete('/users/:username', (req, res) => {
               const username = req.params.username;
-              //console.log(username);
               pool.query('DELETE FROM users WHERE username = $1', [username], (error, results) => {
                   if (error) {
                       console.error(error);
@@ -409,7 +388,7 @@ app.get('/globalv1annual', (req, res) => {
                   }
               })
           
-            });           
+            });       
           let serverInstance = null;
           module.exports = {
               start: function() {

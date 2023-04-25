@@ -20,19 +20,19 @@ export default function Visualization4() {
     fetch(Constants.API_ADDRESS +'/v4chinaco2')
       .then(response => response.json())
       .then(chinaCo2 => setChinaCo2(chinaCo2));
-  });
+  }, []);
 
   useEffect(() => {
     fetch(Constants.API_ADDRESS +'/v4indiaco2')
       .then(response => response.json())
       .then(indiaCo2 => setIndiaCo2(indiaCo2));
-  });
+  }, []);
 
   useEffect(() => {
     fetch(Constants.API_ADDRESS +'/v4usaco2')
       .then(response => response.json())
       .then(usaCo2 => setUsaCo2(usaCo2));
-  });
+  },[]);
 
   const chinaCo2Data = _(chinaCo2)
     .groupBy('vuosi')

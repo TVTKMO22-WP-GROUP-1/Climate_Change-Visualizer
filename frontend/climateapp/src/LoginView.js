@@ -4,8 +4,6 @@ import Constants from './Constants.json'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
-
-
 export default function LoginView(props) {
   const [loginProcessState, setLoginProcessState] = useState("idle");
   const navigate = useNavigate();
@@ -25,11 +23,19 @@ export default function LoginView(props) {
           }
         }
       );
-  
-      console.log(result);
+      
+      
       const receiwedJWT = result.data.token;
-      props.login(receiwedJWT);
-      setLoginProcessState("success");
+      let  rawData =  await axios.get(Constants.API_ADDRESS + '/users')
+      let  parsedData = JSON.stringify(rawData);
+
+      if (parsedData.includes(event.target.username.value)) {
+        props.login(receiwedJWT);
+        setLoginProcessState("success");
+      } else {
+        setLoginProcessState("error");
+      }
+      
       setTimeout(() => {
         navigate('/', { replace: true }); //Navigate to home page
       }, 1500);
