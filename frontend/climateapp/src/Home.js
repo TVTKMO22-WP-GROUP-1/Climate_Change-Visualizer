@@ -28,7 +28,7 @@ function GoToSignUp() {
 function GoToProtected() {
   return (
     <Link to="/protected">
-      <button>Protected View</button>
+      <button>Delete user</button>
     </Link>
   );
 }
