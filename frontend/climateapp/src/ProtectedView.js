@@ -63,10 +63,6 @@ export default function DeleteView() {
                 <input type="text" name="username"/>
             </div>
             <div>
-                Password <br/>
-                <input type="password" name="password"/>
-            </div>
-            <div>
                 {deleteUiControls}
             </div>
         </form>
