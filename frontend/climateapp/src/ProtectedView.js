@@ -14,12 +14,12 @@ export default function DeleteView() {
             const result = await axios.delete(Constants.API_ADDRESS + '/users/'+event.target.username.value,
             {
                 username: event.target.username.value,
+                password: event.target.password.value,
             });
             setdeleteProcessState("success");
-            
             setTimeout(() => {
                 navigate('/', { replace: true }); //Navigate to index page if successful
-                window.location.reload(false)
+                window.location.reload(true)
             }, 1500);
         } catch (error) {
             console.log(error)
@@ -59,6 +59,10 @@ export default function DeleteView() {
             <div>
                 Username <br/>
                 <input type="text" name="username"/>
+            </div>
+            <div>
+                password <br/>
+                <input type="text" name="password"/>
             </div>
             <div>
                 {deleteUiControls}

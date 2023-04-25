@@ -27,15 +27,15 @@ export default function LoginView(props) {
       
       const receiwedJWT = result.data.token;
       let  rawData =  await axios.get(Constants.API_ADDRESS + '/users')
-      let  parsedData = JSON.stringify(rawData);
+      let  jsonStringify = JSON.stringify(rawData);
 
-      if (parsedData.includes(event.target.username.value)) {
-        props.login(receiwedJWT);
-        setLoginProcessState("success");
-      } else {
-        setLoginProcessState("error");
-      }
-      
+        if (jsonStringify.includes(event.target.username.value)) {
+          props.login(receiwedJWT);
+          setLoginProcessState("success");
+        } else {
+          setLoginProcessState("error");
+        }
+
       setTimeout(() => {
         navigate('/', { replace: true }); //Navigate to home page
       }, 1500);
@@ -47,9 +47,6 @@ export default function LoginView(props) {
       }, 1500);
     }
   };
-
-
-
 let loginUiControls = null;
 switch (loginProcessState) {
     case 'idle':
@@ -59,6 +56,7 @@ switch (loginProcessState) {
         loginUiControls = <span>Processing...</span>
         break;
     case 'success':
+
         loginUiControls = <span style = {{color: 'green'}}>Login successful!</span>;
         break;
     case 'error':
