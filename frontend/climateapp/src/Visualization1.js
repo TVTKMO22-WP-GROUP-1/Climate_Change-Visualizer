@@ -17,7 +17,9 @@ export default function Visualization1() {
       setShowReconstruction(!showReconstruction);
     }
     
-    const _ = require('lodash'); 
+    const _ = require('lodash');
+    
+  //Content fetching from database
   useEffect(() => {
     fetch(Constants.API_ADDRESS + '/globalv1annual')
       .then(response => response.json())

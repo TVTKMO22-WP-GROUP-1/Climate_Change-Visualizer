@@ -12,6 +12,8 @@ export default function Visualization2() {
   const [view, setView] = useState('co2');
   const _ = require('lodash'); 
 
+
+  //Content fetching from database
   useEffect(() => {
     fetch(Constants.API_ADDRESS +'/maunaloaco2v2annual')
       .then(response => response.json())

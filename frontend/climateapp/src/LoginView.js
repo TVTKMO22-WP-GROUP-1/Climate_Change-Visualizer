@@ -48,7 +48,7 @@ export default function LoginView(props) {
     }
   };
 
-
+//What happens after login attempt
 
 let loginUiControls = null;
 switch (loginProcessState) {

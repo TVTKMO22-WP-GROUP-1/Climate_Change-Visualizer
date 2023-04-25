@@ -13,7 +13,7 @@ export default function Visualization5() {
   const globalDataArray = [energyData, industrialData, agricultureData, wasteData];
   const array = [];
 
-
+  //Content fetching from database
   useEffect(() => {
     fetch(Constants.API_ADDRESS +'/v5globalagricultureforestrylanduse')
       .then(response => response.json())

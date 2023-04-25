@@ -10,6 +10,8 @@ export default function Visualization3() {
 
   const _ = require('lodash');
 
+
+  //Content fetching from database
   useEffect(() => {
     fetch(Constants.API_ADDRESS +'/v3carbondioxide')
       .then(response => response.json())
