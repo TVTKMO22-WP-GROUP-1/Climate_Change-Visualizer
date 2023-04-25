@@ -28,7 +28,7 @@ function App() {
       <Route path="*" element={ <Home userLoggedIn={isUserLoggedIn != null}/>}/>
       </Routes>
     </BrowserRouter>
-    </div>
+      </div>
     </div>
   );
 }

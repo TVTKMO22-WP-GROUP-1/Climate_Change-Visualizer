@@ -16,6 +16,8 @@ export default function Visualization4() {
 
   const _ = require('lodash');
 
+
+  //Content fetching from database
   useEffect(() => {
     fetch(Constants.API_ADDRESS +'/v4chinaco2')
       .then(response => response.json())
@@ -103,16 +105,16 @@ export default function Visualization4() {
 
   return (
     <div className="visualization-block">
-        <h1>Visualization 4</h1>
-        <p>Fossil CO2 emissions of three countries over a period of time. The x-axis showing the years, while the y-axis showing values in million tonnes of CO2 emissions per year.</p>
-        <a href="https://www.icos-cp.eu/science-and-impact/global-carbon-budget/2021" className="big-link">Description</a>
-        <div>
+      <h1>Visualization 4</h1>
+      <p>Fossil CO2 emissions of three countries over a period of time. The x-axis showing the years, while the y-axis showing values in million tonnes of CO2 emissions per year.</p>
+      <a href="https://www.icos-cp.eu/science-and-impact/global-carbon-budget/2021" className="big-link">Description</a>
+      <div>
           <button onClick={() => handleButtonClick1('china')}>China</button>
           <button onClick={() => handleButtonClick2('india')}>India</button>
           <button onClick={() => handleButtonClick3('usa')}>USA</button>
-        </div>
-        <br></br>
-        <div className='visualization-container'>
+      </div>
+      <br></br>
+      <div className='visualization-container'>
         <LineChart width={800} height={400} data={dataToDisplay} style={{ backgroundColor: 'black' }}>
           <XAxis dataKey="year" />
           <YAxis />
