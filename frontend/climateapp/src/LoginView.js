@@ -47,6 +47,7 @@ export default function LoginView(props) {
       }, 1500);
     }
   };
+
 let loginUiControls = null;
 switch (loginProcessState) {
     case 'idle':
@@ -70,18 +71,18 @@ switch (loginProcessState) {
     <div>
       <h2>Login</h2>
       <form onSubmit={HandleLoginSubmit}>
-        <div>
-          Username<br/>
-          <input type="text" name="username"/>
-          </div>
-          <div>
-            Password<br/>
-            <input type="password" name="password"/>
-            </div>
-            <div>
-              {loginUiControls}
-            </div>
-          </form>
+      <div>
+        Username<br/>
+        <input type="text" name="username"/>
+      </div>
+      <div>
+        Password<br/>
+        <input type="password" name="password"/>
+      </div>
+      <div>
+        {loginUiControls}
+      </div>
+      </form>
     </div>
   )
 }
