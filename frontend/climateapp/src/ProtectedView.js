@@ -14,8 +14,6 @@ export default function DeleteView() {
             const result = await axios.delete(Constants.API_ADDRESS + '/users/'+event.target.username.value,
             {
                 username: event.target.username.value,
-                password: event.target.password.value,
-                
             });
             setdeleteProcessState("success");
             
