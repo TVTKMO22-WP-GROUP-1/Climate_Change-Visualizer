@@ -102,8 +102,7 @@ export default function Visualization4() {
 
 
   return (
-    <div className="visualization-container">
-      <div className="visualization-block">
+    <div className="visualization-block">
         <h1>Visualization 4</h1>
         <p>Fossil CO2 emissions of three countries over a period of time. The x-axis showing the years, while the y-axis showing values in million tonnes of CO2 emissions per year.</p>
         <a href="https://www.icos-cp.eu/science-and-impact/global-carbon-budget/2021" className="big-link">Description</a>
@@ -112,20 +111,22 @@ export default function Visualization4() {
           <button onClick={() => handleButtonClick2('india')}>India</button>
           <button onClick={() => handleButtonClick3('usa')}>USA</button>
         </div>
+        <br></br>
+        <div className='visualization-container'>
         <LineChart width={800} height={400} data={dataToDisplay} style={{ backgroundColor: 'black' }}>
           <XAxis dataKey="year" />
           <YAxis />
           <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-          <Tooltip />
+          <Tooltip labelStyle={{ color: 'black' }}/>
           <Legend />
           {selectedCountry1 === 'china' && (
-            <Line type="monotone" dataKey="chinaco2" stroke="#8884d8" />
+            <Line type="monotone" dataKey="chinaco2" stroke="#8884d8" dot={false} />
           )}
           {selectedCountry2 === 'india' && (
-            <Line type="monotone" dataKey="indiaco2" stroke="#82ca9d" />
+            <Line type="monotone" dataKey="indiaco2" stroke="#82ca9d" dot={false} />
           )}
           {selectedCountry3 === 'usa' && (
-            <Line type="monotone" dataKey="usaco2" stroke="#ffc658" />
+            <Line type="monotone" dataKey="usaco2" stroke="#ffc658" dot={false} />
           )}
         </LineChart>
       </div>
