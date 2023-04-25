@@ -129,12 +129,13 @@ export default function Visualization5() {
 
 
   return (
-    <div role="pie" className='visualization-block'>
+    <div className='visualization-block'>
       <h1>Visualization 5</h1>
       <p>Co2 emission percentages based on sectors.</p>
 
       <p> Move your cursor on top of the sector to see more details.</p>
       <a href="https://ourworldindata.org/emissions-by-sector#co2-emissions-by-sector" className="big-link">Description</a>
+      <div role="pie"  className='visualization-container'>
       <PieChart width={900} height={500}>
         <Tooltip content={<CustomTooltip />} />
         <Pie
@@ -171,6 +172,7 @@ export default function Visualization5() {
           }
         />
       </PieChart>
+      </div>
     </div>
   )
 };

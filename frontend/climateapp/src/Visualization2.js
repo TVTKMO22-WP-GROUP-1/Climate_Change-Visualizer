@@ -117,8 +117,8 @@ export default function Visualization2() {
       </label>
     </div>
     <br></br>
+    <div  className='visualization-container'>
     {view === 'co2' ? (
-  <div  className='visualization-container'>
     <LineChart width={800} height={400} data={combinedData} style={{ backgroundColor: 'black' }}>
       <XAxis dataKey="year" />
       <YAxis />
@@ -128,9 +128,7 @@ export default function Visualization2() {
       <Line type="monotone" dataKey="co2annual" stroke="#8884d8" dot={false} />
       <Line type="monotone" dataKey="co2monthly" stroke="#82ca9d" dot={false}/>
     </LineChart>
-  </div>
     ) : (
-  <div>
     <LineChart width={800} height={400} data={iceCoreData} style={{ backgroundColor: 'black' }}>
       <XAxis dataKey="year" />
       <YAxis />
@@ -141,9 +139,9 @@ export default function Visualization2() {
       <Line type="monotone" dataKey="icecore2" stroke="#82ca9d" dot={false}/>
       <Line type="monotone" dataKey="icecore3" stroke="#82ca9d" dot={false}/>
     </LineChart>
-  </div>
     )}
-    </div>
+  </div>
+ </div>
 
   )
 }
