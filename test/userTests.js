@@ -1,12 +1,15 @@
 const chai = require('chai');
+const expect = chai.expect;
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
-const server = require('../backend/server')
-const url = 'http://localhost:5000';
+const server = require('../backend/visuals')
+const should = chai.should();
+const Constants = require('../frontend/climateapp/src/Constants.json') 
+const url = Constants.API_ADDRESS;
 
 let user = {
-    username: 'test1',
-    password: '1234'
+    username: 'testUser',
+    password: 'testUser'
 }
 
 describe('User API tests',function(){
@@ -16,7 +19,7 @@ describe('User API tests',function(){
     after(function(){
         server.close();
     })
-    
+
     it('POST /register test',function(done){
         chai.request(url)
         .post('/register')
@@ -39,11 +42,11 @@ describe('User API tests',function(){
 
     it('DELETE /deleteuser test',function(done){
         chai.request(url)
-        .delete('/deleteuser')
+        .delete('/users/'+user)
         .send(user)
         .end(function(err,res){
-            res.should.have.status(401);
+            res.should.have.status(201);
             done();
         })
     })
-})     
+})
