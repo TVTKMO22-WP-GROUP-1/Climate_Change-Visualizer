@@ -158,9 +158,9 @@ return (
     <a href="https://bolin.su.se/data/moberg-2012-nh-1?n=moberg-2005" className="big-link">Description Reconstruction</a>
     <br></br>
     <label>
-        Show Reconstruction Line
-        <input type="checkbox" checked={showReconstruction} onChange={toggleReconstruction} />
-      </label>
+      Show Reconstruction Line
+      <input type="checkbox" checked={showReconstruction} onChange={toggleReconstruction} />
+    </label>
     <div>
       <label>
         <input type="radio" value="annual" checked={view === 'annual'} onChange={() => setView('annual')} />
@@ -172,31 +172,31 @@ return (
       </label>
     </div>
     <div className='visualization-container'>
-    {view === 'annual' ? (
-      <LineChart width={800} height={400} data={combinedYearlyData} style={{ backgroundColor: 'black' }}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="vuosi" />
-        <YAxis />
-        <Tooltip   labelStyle={{ color: 'black' }} />
-        <Legend />
-       {!showReconstruction && <Line type="monotone" dataKey="anomalydegc" stroke="green" dot={false} />}
-        {!showReconstruction && <Line type="monotone" dataKey="anomalynorthyear" stroke="blue" dot={false} />}
-        {!showReconstruction && <Line type="monotone" dataKey="anomalysouthyear" stroke="red" dot={false}/>}
-        {showReconstruction && <Line type="monotone" dataKey="reconstruction" stroke="gray" dot={false} />}
-      </LineChart>
+      {view === 'annual' ? (
+        <LineChart width={800} height={400} data={combinedYearlyData} style={{ backgroundColor: 'black' }}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="vuosi" />
+          <YAxis />
+          <Tooltip   labelStyle={{ color: 'black' }} />
+          <Legend />
+          {!showReconstruction && <Line type="monotone" dataKey="anomalydegc" stroke="green" dot={false} />}
+          {!showReconstruction && <Line type="monotone" dataKey="anomalynorthyear" stroke="blue" dot={false} />}
+          {!showReconstruction && <Line type="monotone" dataKey="anomalysouthyear" stroke="red" dot={false}/>}
+          {showReconstruction && <Line type="monotone" dataKey="reconstruction" stroke="gray" dot={false} />}
+        </LineChart>
     ) : (
         <LineChart width={800} height={400} data={combinedMonthlyData} style={{ backgroundColor: 'black'}}>
-         <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="kuukausi" />
-         <YAxis />
-         <Tooltip   labelStyle={{ color: 'black' }} />
+          <YAxis />
+          <Tooltip   labelStyle={{ color: 'black' }} />
           <Legend />
           <Line type="monotone" dataKey="anomalydegc" stroke="green" dot={false} />
           <Line type="monotone" dataKey="anomalynorthmonth" stroke="blue" dot={false}  />
           <Line type="monotone" dataKey="anomalysouthmonth" stroke="red" dot={false} />
        </LineChart>
   )}
+    </div>
   </div>
-</div>
 );
     }

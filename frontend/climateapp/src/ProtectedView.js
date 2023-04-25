@@ -56,17 +56,17 @@ export default function DeleteView() {
             Delete
         </h2>
         <form onSubmit={ HandledeleteSubmit}>
-            <div>
-                Username <br/>
-                <input type="text" name="username"/>
-            </div>
-            <div>
-                Password <br/>
-                <input type="password" name="password"/>
-            </div>
-            <div>
-                {deleteUiControls}
-            </div>
+        <div>
+            Username <br/>
+            <input type="text" name="username"/>
+        </div>
+        <div>
+            Password <br/>
+            <input type="password" name="password"/>
+        </div>
+        <div>
+            {deleteUiControls}
+        </div>
         </form>
     </div>
     )

@@ -100,48 +100,47 @@ export default function Visualization2() {
 
   return (
     <div role="v2" className='visualization-block'>
-    <h1>Visualization 2</h1>
-    <p>Atmospheric CO2 concentrations from Mauna Loa measurements starting 1958.</p>
-    <p>Antarctic Ice Core records of atmospheric CO2 ratios combined with Mauna Loa measurements.</p>
-    <a href="https://gml.noaa.gov/ccgg/about/co2_measurements.html" className="big-link">Description co2</a>
-    <br></br>
-    <a href="https://cdiac.ess-dive.lbl.gov/trends/co2/lawdome.html" className="big-link">Description icecores</a>
-    <div>
-      <label>
-        <input type="radio" value="co2" checked={view === 'co2'} onChange={() => setView('co2')} />
-        co2
-      </label>
-      <label>
-        <input type="radio" value="icecore" checked={view === 'icecore'} onChange={() => setView('icecore')} />
-        icecore
-      </label>
-    </div>
-    <br></br>
-    <div  className='visualization-container'>
-    {view === 'co2' ? (
-    <LineChart width={800} height={400} data={combinedData} style={{ backgroundColor: 'black' }}>
-      <XAxis dataKey="year" />
-      <YAxis />
-      <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-      <Tooltip   labelStyle={{ color: 'black' }} />
-      <Legend />
-      <Line type="monotone" dataKey="co2annual" stroke="#8884d8" dot={false} />
-      <Line type="monotone" dataKey="co2monthly" stroke="#82ca9d" dot={false}/>
-    </LineChart>
+      <h1>Visualization 2</h1>
+      <p>Atmospheric CO2 concentrations from Mauna Loa measurements starting 1958.</p>
+      <p>Antarctic Ice Core records of atmospheric CO2 ratios combined with Mauna Loa measurements.</p>
+      <a href="https://gml.noaa.gov/ccgg/about/co2_measurements.html" className="big-link">Description co2</a>
+      <br></br>
+      <a href="https://cdiac.ess-dive.lbl.gov/trends/co2/lawdome.html" className="big-link">Description icecores</a>
+      <div>
+        <label>
+          <input type="radio" value="co2" checked={view === 'co2'} onChange={() => setView('co2')} />
+          co2
+        </label>
+        <label>
+          <input type="radio" value="icecore" checked={view === 'icecore'} onChange={() => setView('icecore')} />
+          icecore
+        </label>
+      </div>
+      <br></br>
+      <div  className='visualization-container'>
+        {view === 'co2' ? (
+          <LineChart width={800} height={400} data={combinedData} style={{ backgroundColor: 'black' }}>
+            <XAxis dataKey="year" />
+            <YAxis />
+            <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+            <Tooltip   labelStyle={{ color: 'black' }} />
+            <Legend />
+            <Line type="monotone" dataKey="co2annual" stroke="#8884d8" dot={false} />
+            <Line type="monotone" dataKey="co2monthly" stroke="#82ca9d" dot={false}/>
+          </LineChart>
     ) : (
-    <LineChart width={800} height={400} data={iceCoreData} style={{ backgroundColor: 'black' }}>
-      <XAxis dataKey="year" />
-      <YAxis />
-      <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-      <Tooltip   labelStyle={{ color: 'black' }} />
-      <Legend />
-      <Line type="monotone" dataKey="icecore1" stroke="#8884d8" dot={false} />
-      <Line type="monotone" dataKey="icecore2" stroke="#82ca9d" dot={false}/>
-      <Line type="monotone" dataKey="icecore3" stroke="#82ca9d" dot={false}/>
-    </LineChart>
-    )}
-  </div>
- </div>
-
+          <LineChart width={800} height={400} data={iceCoreData} style={{ backgroundColor: 'black' }}>
+            <XAxis dataKey="year" />
+            <YAxis />
+            <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+            <Tooltip   labelStyle={{ color: 'black' }} />
+            <Legend />
+            <Line type="monotone" dataKey="icecore1" stroke="#8884d8" dot={false} />
+            <Line type="monotone" dataKey="icecore2" stroke="#82ca9d" dot={false}/>
+            <Line type="monotone" dataKey="icecore3" stroke="#82ca9d" dot={false}/>
+          </LineChart>
+        )}
+      </div>
+    </div>
   )
 }

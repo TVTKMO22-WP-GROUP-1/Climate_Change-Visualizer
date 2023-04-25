@@ -39,8 +39,8 @@ function View1() {
     <div className="headline-container">
       <div className="headline-block">
         <div className="text-container">
-        <h2>View N1</h2>
-        <p>Visualizations 1-3</p>
+          <h2>View N1</h2>
+          <p>Visualizations 1-3</p>
         </div>
       </div>
     </div>
@@ -51,9 +51,9 @@ function View2() {
   return (
     <div className="headline-container">
       <div className="headline-block">
-      <div className="text-container">
-        <h2>View N2</h2>
-        <p>Visualizations 4-5</p>
+        <div className="text-container">
+          <h2>View N2</h2>
+          <p>Visualizations 4-5</p>
         </div>
       </div>
     </div>
@@ -66,9 +66,9 @@ function View3() {
     <div className="headline-container">
       <div className="headline-block">
         <div className="text-container">
-        <h2>View N3</h2>
+          <h2>View N3</h2>
         
-        <p>User made view</p>
+          <p>User made view</p>
         </div>
       </div>
     </div>
@@ -77,10 +77,10 @@ function View3() {
 export default function Home(props) {
   return (
     <div>
-    <div>
+      <div>
       User login status: {props.userLoggedIn ? "Logged in" : "Not logged in" }
-    </div>
-    <div>
+      </div>
+      <div>
       {props.userLoggedIn ?
         <GoToProtected/>
         :
@@ -91,20 +91,20 @@ export default function Home(props) {
       }
       </div>
       <div>
-      <View1/>
-      <div className="v1-v2">
-        <Visualization1/>
-        <Visualization2/>
-      </div>
-      <div className="v3">
-        <Visualization3/>
+        <View1/>
+        <div className="v1-v2">
+          <Visualization1/>
+          <Visualization2/>
+        </div>
+        <div className="v3">
+          <Visualization3/>
         </div>
         <View2/>
         <div className = "v4-v5">
-        <Visualization4/>
-        <Visualization5/>
+          <Visualization4/>
+          <Visualization5/>
         </div>
-        </div>
+      </div>
     </div>
   )
 }
